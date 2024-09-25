@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,26 +7,45 @@
     <title>Vite + Vue</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="w-screen"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
   <style>
-    *{
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      
+    /* styles.css or <style> section in your component */
+    :root {
+      font-size: 16px; /* Default font size */
     }
-    body{
-      margin: 0;
-      padding: 0;
-      display: block;
+
+    @media (max-width: 640px) {
+      /* Small screens (sm) */
+      :root {
+        font-size: 8px; /* Smaller font size */
+      }
     }
-    #app{
-      margin: 0;
-      padding: 0;
+
+    @media (min-width: 641px) and (max-width: 768px) {
+      /* Medium screens */
+      :root {
+        font-size: 14px; /* Default font size */
+      }
+    }
+
+    @media (min-width: 769px) {
+      /* Large screens */
+      :root {
+        font-size: 16px; /* Larger font size */
+      }
+    }
+
+    * {
       box-sizing: border-box;
-      width: 100%;
+    }
+    #app {
+      overflow: auto; /* Ensures scrolling is possible */
+      height: 100vh; /* Makes sure it fills the full viewport height */
+    }
+    #app::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </html>

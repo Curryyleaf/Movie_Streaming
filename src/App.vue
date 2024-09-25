@@ -1,27 +1,30 @@
 <template>
-<section class="">
-<LandingPage></LandingPage>
-</section>
+<section  class=" w-full h-full  box-border m-0 p-0">
+   <Nav v-if="!hideNavbar" ></Nav>
+    <router-view></router-view>
+  </section>
 </template>
 
 <script>
-import LandingPage from './views/LandingPage.vue';
-
+import CelebSingleProfile from "./views/CelebSingleProfile.vue";
+import LandingPage from "./views/LandingPage.vue";
+import Nav from "./views/Nav.vue";
 
 
 export default {
-   components:{LandingPage} ,
-   data(){
-      return{
-         
-      }
+  components: { LandingPage  , CelebSingleProfile , Nav},
+  data() { 
+    return {};
+  },
+  computed:{
+   hideNavbar(){
+      return this.$route.meta.hideNavbar
    }
-}
+  }
+};
 </script>
 
-<style>
-</style>
-
+<style></style>
 
 <!-- When cloning a complex platform like IMDb, it's crucial to adopt strategies that enhance development speed, minimize errors, and ensure a successful implementation. Here’s a detailed guide to help you streamline the process:
 

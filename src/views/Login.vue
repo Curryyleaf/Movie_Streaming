@@ -1,81 +1,199 @@
 <template>
-  <div>
-    <input type="email" v-model="email" placeholder="Email">
-    <input type="password" v-model="password" placeholder="Password">
-    <button @click="login">Login</button>
+  <div class="flex justify-center items-center min-h-screen  bg-black-100 p-4">
+    <div class="bg-black rounded-lg shadow-lg text-white  p-8  sm:max-w-xs lg:w-[30%] sm:max-h-[80dvh] mx-auto" >
+      <div class="flex justify-center sm:mb-2 mb-4">
+        <Icon icon="cbi:movies-anywhere" width="4rem" height="4rem"  class="text-white"/>
+      </div>
+
+      <h2 class="text-3xl  font-bold text-center  text-white mb-6 sm:mb-2">Login</h2>
+      <form @submit.prevent="handleLogin" class="flex flex-col">
+        <div class="mb-4 sm:mb-2">
+          <label for="username" class="block text-md text-left text-gray-300 font-medium">Username</label>
+          <input
+            type="text"
+            id="username"
+            v-model="username"
+            @input="sanitizeInput"
+            placeholder="Enter your username"
+            class="mt-1 block w-full p-3 sm:p-1 bg-gray-700 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"
+            required
+          />
+        </div>
+        <div class="mb-4 sm:mb-2">
+          <label for="password" class="block text-md text-left text-gray-300 font-medium">Password</label>
+          <input
+            type="password"
+            id="password"
+            v-model="password"
+            @input="sanitizeInput"
+            placeholder="Enter your password"
+            class="mt-1 block w-full p-3 sm:p-1 bg-gray-700 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"
+            required
+          />
+        </div>
+        <div class="flex items-center sm:mb-2 mb-4">
+          <input
+            type="checkbox"
+            id="rememberMe"
+            v-model="rememberMe"
+            class="mr-2 leading-tight text-green-400"
+          />
+          <label for="rememberMe" class="text-sm text-gray-400">Remember me</label>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-300"
+        >
+          Login
+        </button>
+      </form>
+      <p v-if="error" class="text-red-500 text-sm text-center mt-4">{{ error }}</p>
+    </div>
   </div>
 </template>
 
+<style scoped>
+body {
+  background-color: #121212; 
+}
+
+input {
+  background-color: #2c2c2c; 
+  color: white; 
+}
+
+input::placeholder {
+  color: #aaa; 
+}
+</style>
+
+
 <script>
+import axios from "axios";
+import { Icon } from "@iconify/vue/dist/iconify.js";
 export default {
+  name: "LoginForm",
+  components: { Icon },
   data() {
     return {
-      email: '',
-      password: ''
+      rememberMe: false,
+      username: "",
+      password: "",
+      csrfToken: "",
+      error: null,
     };
   },
   methods: {
-    login() {
-      // Send login request and handle authentication token
-      // Store token in local storage
+    async handleLogin() {
+      //       const sanitizedUsername = this.sanitizeInput(this.username);
+      // const sanitizedPassword = this.sanitizeInput(this.password);
+      const usersCredential = [
+        {
+          username: import.meta.env.VITE_APP_USER1_USERNAME,
+          password: import.meta.env.VITE_APP_USER1_PASSWORD,
+        },
+        {
+          username: import.meta.env.VITE_APP_USER2_USERNAME,
+          password: import.meta.env.VITE_APP_USER2_PASSWORD,
+        },
+        {
+          username: import.meta.env.VITE_APP_USER_NAME,
+          password: import.meta.env.VITE_APP_PASSWORD,
+        },
+      ];
+      const user = usersCredential.find(
+        (user) =>
+          user.username === this.username && user.password === this.password
+      );
+
+      console.log("PASSWORD DODNENDOEDNEINDE", usersCredential);
+
+      if (!user) {
+        this.error = "Invalid username or password.";
+        return;
+      }
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/authentication/token/new`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
+            },
+          }
+        );
+        console.log("responses", response);
+
+        const requestToken = response.data.request_token;
+        this.$cookies.set("requestToken", requestToken);
+        // // Step 2: Redirect user to authorize the request token
+        window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/`;
+
+      } catch (error) {
+        this.errorMessage =
+          "An error occurred while creating the request token.";
+      }
+    },
+
+    async createSession() {
+      console.log("create session");
+
+      try {
+        const response = await axios.post(
+          "https://api.themoviedb.org/3/authentication/session/new",
+          {
+            request_token: this.$cookies.get("requestToken"),
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
+            },
+          }
+        );
+        const sessionId = response.data.session_id;
+        this.$cookies.set("sessionId", sessionId);
+        console.log("Session ID:", sessionId);
+        return sessionId;
+      } catch (error) {
+        console.error("Error creating session:", error);
+      }
+    },
+    async fetchCsrfToken() {
+      try {
+        const response = await axios.get("/csrf-token");
+        this.csrfToken = response.data.csrfToken;
+      } catch (error) {
+        console.error("Failed to fetch CSRF token", error);
+      }
+    },
+
+    sanitizeInput(value) {
+      // Sanitize the input to avoid potential XSS attacks
+      // you need to check if any maliciouis script is send through te input
+      return String(value).replace(/[<>]/g, "");
+      // you should have a CSP(cross site policy ) that checks any script , right now we are taking awau /<script>[]etc
+      // for that you will need csp header like
+      // Content-Security-Policy: script-src 'self' https://trusted.cdn.com;
+      //  CSP enforceS such as restricting where scripts, images, or styles can be loaded from.
+    },
+  },
+  mounted() {
+    console.log('mountedd');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const approved = urlParams.get("approved");
+
+    if (approved === "true") {
+      console.log("url params", urlParams);
+
+      this.createSession();
+    } else {
+      console.log("User did not approve the request.");
     }
-  }
+  },
 };
 </script>
 
-
-
-<!-- When implementing authentication and authorization in web applications, it’s crucial to follow best practices to ensure security and robustness. Here’s a high-level overview of secure methods for handling authentication and authorization:
-
-### 1. **Use Secure Protocols**
-- **HTTPS**: Always use HTTPS to encrypt data in transit, preventing eavesdropping and man-in-the-middle attacks.
-
-### 2. **Token-Based Authentication**
-- **JWT (JSON Web Tokens)**: Use JWT for stateless authentication. Ensure tokens are signed and can be verified. Include expiration times (e.g., `exp` claim) to limit their lifespan.
-- **Refresh Tokens**: Use short-lived access tokens with refresh tokens to obtain new access tokens without requiring user credentials.
-
-### 3. **Store Tokens Securely**
-- **HttpOnly Cookies**: Store tokens in HttpOnly cookies instead of local storage or session storage. This prevents XSS attacks from accessing the token.
-- **SameSite Cookies**: Use the `SameSite` attribute to prevent CSRF attacks.
-
-### 4. **Session Management**
-- **Server-Side Sessions**: Store session data on the server rather than relying solely on client-side tokens. This provides better control over session validity.
-- **Session Expiration**: Implement session expiration policies to log users out after a period of inactivity.
-
-### 5. **User Authentication**
-- **Strong Password Policies**: Enforce strong password requirements (length, complexity) and consider implementing password strength meters.
-- **Password Hashing**: Use strong hashing algorithms (e.g., bcrypt, Argon2) to store user passwords securely.
-- **Multi-Factor Authentication (MFA)**: Implement MFA to add an additional layer of security during the login process.
-
-### 6. **Authorization Best Practices**
-- **Role-Based Access Control (RBAC)**: Define roles and permissions clearly. Use middleware to enforce access controls based on user roles.
-- **Principle of Least Privilege**: Grant users the minimum level of access necessary for their role. Regularly review permissions.
-
-### 7. **Input Validation and Sanitization**
-- **Sanitize User Input**: Validate and sanitize all user inputs to prevent SQL injection and XSS attacks.
-- **Rate Limiting**: Implement rate limiting to protect against brute-force attacks and abuse.
-
-### 8. **Monitor and Log Activity**
-- **Audit Logs**: Maintain logs of authentication attempts, including failed logins. Monitor for unusual activity.
-- **Intrusion Detection Systems**: Use systems that monitor and alert on suspicious behaviors.
-
-### 9. **Use Security Libraries and Frameworks**
-- **Established Libraries**: Use well-known libraries and frameworks for authentication (e.g., Passport.js, Auth0) that follow security best practices.
-- **Regular Updates**: Keep libraries and dependencies up to date to mitigate known vulnerabilities.
-
-### 10. **Secure APIs**
-- **API Key Validation**: For APIs, use API keys or OAuth for service-to-service communication.
-- **CORS**: Configure Cross-Origin Resource Sharing (CORS) properly to control which domains can access your APIs.
-
-### 11. **Security Headers**
-- **Content Security Policy (CSP)**: Implement a CSP to reduce the risk of XSS attacks.
-- **X-Content-Type-Options**: Prevent MIME-type sniffing.
-- **X-Frame-Options**: Protect against clickjacking attacks.
-
-### 12. **Regular Security Audits and Penetration Testing**
-- Conduct regular security audits and penetration tests to identify and fix vulnerabilities in your application.
-
-### 13. **Educate Users**
-- Provide guidance on recognizing phishing attempts and securing their accounts (e.g., using unique passwords).
-
-By implementing these high-level practices, you can create a more secure authentication and authorization system that minimizes risks and protects user data effectively. -->
+<style scoped>
+</style>

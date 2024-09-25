@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router/index";
+import VueCookies from "vue-cookies";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -30,6 +31,7 @@ library.add(
 // Use the router
 app.use(router);
 app.use(pinia)
+app.use(VueCookies)
 app.component("font-awesome-icon", FontAwesomeIcon);
 // Mount the app
 app.mount("#app");

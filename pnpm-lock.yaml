@@ -38,6 +38,9 @@ dependencies:
   vue:
     specifier: ^3.4.37
     version: 3.5.5
+  vue-cookies:
+    specifier: ^1.8.4
+    version: 1.8.4
   vue-router:
     specifier: ^4.4.5
     version: 4.4.5(vue@3.5.5)
@@ -1512,6 +1515,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /vue-cookies@1.8.4:
+    resolution: {integrity: sha512-9zjvACKE4W0kEb8OQtXzpizKhf6zfFOG/Z1TEUjSJn4Z4rintuAHo8y/FpCUhTWHMmPe8E+Fko+/tiXVM+5jOw==}
+    dev: false
 
   /vue-demi@0.14.10(vue@3.5.5):
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}

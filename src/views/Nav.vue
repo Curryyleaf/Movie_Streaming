@@ -1,5 +1,5 @@
 <template>
-  <nav class="w-full box-border bg-black-200 overflow-x-hidden flex gap-4 px-4 py-4 items-center">
+  <nav class="w-full box-border  text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-4 items-center">
     <a href="">
       <svg
         fill="#1d1b8d"
@@ -30,12 +30,12 @@
       <font-awesome-icon :icon="['fas', 'bars']" />
       <span>Menu</span>
     </label>
-    <div class="flex flex-1 rounded-lg bg-white text-gray-600 items-center ">
-      <p class="text-black font-medium px-2">All</p>
+    <div class="flex flex-1 rounded-lg bg-white  items-center ">
+      <p class=" font-medium px-2">All</p>
       <font-awesome-icon :icon="['fas', 'caret-down']" />
       <input type="text" class="w-auto flex bg-white flex-1" />
       <button class="box-border bg-white flex items-center justify-center h-6 w-6">
-        <font-awesome-icon :icon="['fas', 'magnifying-glass']" size="sm" class=" text-gray-500"  />
+        <font-awesome-icon :icon="['fas', 'magnifying-glass']" size="sm" class=" "  />
       </button>
     </div>
     <div class="flex items-center ">

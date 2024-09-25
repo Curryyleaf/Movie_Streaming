@@ -1,115 +1,4 @@
-
-<template>
-  <div class="login-container">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <div>
-        <label for="username">Username</label>
-        <input
-          type="text"
-          v-model="form.username"
-          id="username"
-          @input="sanitizeInput('username')"
-          required
-        />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input
-          type="password"
-          v-model="form.password"
-          id="password"
-          @input="sanitizeInput('password')"
-          required
-        />
-      </div>
-      <button type="submit">Login</button>
-      <p v-if="error" class="error">{{ error }}</p>
-    </form>
-  </div>
-</template>
-
-<script>
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      form: {
-        username: "",
-        password: "",
-      },
-      csrfToken: "", // CSRF token will be fetched and added
-      error: null,
-    };
-  },
-  mounted() {
-    this.fetchCsrfToken();
-  },
-  methods: {
-    sanitizeInput(field) {
-      // Sanitize the input to avoid potential XSS attacks
-      // you need to check if any maliciouis script is send through te input 
-      this.form[field] = this.form[field].replace(/[<>]/g, "");
-      // you should have a CSP(cross site policy ) that checks any script , right now we are taking awau /<>[]etc
-      // for that you will need csp header like 
-      // Content-Security-Policy: script-src 'self' https://trusted.cdn.com;
-//  CSP enforceS such as restricting where scripts, images, or styles can be loaded from.
-    },
-
-    async fetchCsrfToken() {
-      try {
-        // Assuming CSRF token is available from an API or meta tag
-        const response = await axios.get("/csrf-token");
-        this.csrfToken = response.data.csrfToken;
-      } catch (error) {
-        console.error("Failed to fetch CSRF token", error);
-      }
-    },
-
-    async login() {
-      try {
-        const response = await axios.post(
-          "/api/login",
-          {
-            username: this.form.username,
-            password: this.form.password,
-          },
-          {
-            headers: {
-              "X-CSRF-TOKEN": this.csrfToken, // CSRF protection
-            },
-            withCredentials: true, // SameSite cookies: Allows axios to send cookies for the domain
-          }
-        );
-        if (response.data.success) {
-          // Handle successful login
-          alert("Login successful!");
-        } else {
-          this.error = "Invalid credentials";
-        }
-      } catch (error) {
-        console.error("Login failed", error);
-        this.error = "Login failed. Please try again.";
-      }
-    },
-  },
-};
-</script>
-
-<style scoped>
-.login-container {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.error {
-  color: red;
-}
-</style> 
-
-
-
+<!-- 
 <!-- When implementing authentication and authorization in a frontend application, several security measures can enhance protection. Here’s a comprehensive list of front-end security practices you might consider:
 
 1. **Input Validation and Sanitization**: Validate and sanitize user inputs to prevent injection attacks and ensure data integrity.
@@ -121,7 +10,7 @@ export default {
 4. **Secure Cookies**: Use secure and HttpOnly flags for cookies to prevent access from client-side scripts and ensure cookies are transmitted over HTTPS.
 
 5. **HTTPS**: Ensure all communications between the client and server are encrypted using HTTPS.
-
+er
 6. **Session Management**: Implement proper session management, including expiration and renewal policies, to prevent session fixation and hijacking.
 
 7. **Rate Limiting**: Implement rate limiting to prevent brute-force attacks on authentication endpoints.
@@ -163,4 +52,4 @@ export default {
    - **Invalidate Old Sessions**: Implement mechanisms to invalidate old tokens when a user logs out or changes their password.
    - **Token Binding**: Consider binding tokens to specific client-side attributes like IP or User-Agent to prevent token replay attacks. This would make tokens unusable if stolen by an attacker from a different environment.
    
-
+ -->

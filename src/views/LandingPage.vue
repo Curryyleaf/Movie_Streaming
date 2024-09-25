@@ -1,26 +1,25 @@
 <template>
-  <div class="w-full bg-black h-full m-0 p-0  box-border">
-    <header class="flex box-border w-full mx-0 px-0">
-      <Nav></Nav>
+  <section class=" bg-black h-auto overflow-clip w-full  m-0 p-0  box-border">
+    <header class=" box-border w-full mx-0 px-0">
    </header >
-   <main class="w-full box-border m-0 p-0">
+   <main class="w-full box-border h-auto  pl-4 pr-2 p-0">
        <Hero></Hero>
        <CelebList></CelebList>
-      <router-view></router-view> 
+
     </main>
     <footer>
       
       <!-- what is intersection observer ? isIntersecting ? observer.unobserve? -->
 
     </footer>
-  </div>
+  </section>
 </template>
 
 <script>
-import { useMoviesStore } from '../store/MovieStore';
+import { useMoviesStore } from '../store/MovieStore.js';
 import Hero from '../views/Hero.vue';
 import Nav from '../views/Nav.vue';
-import CelebList from '../views/CelebList.vue';
+import CelebList from './CelebProfiles.vue';
 
 export default {
   components:{Nav , Hero , CelebList} ,

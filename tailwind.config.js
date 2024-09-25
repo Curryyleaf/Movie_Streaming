@@ -18,6 +18,16 @@ export default {
         "black-800": "#666666", // approaching gray
         "black-900": "#000000",
       },
+      white: {
+        100: "#f9f9f9", // off-white
+        200: "#f0f0f0", // lighter white
+        300: "#e0e0e0", // soft white
+        400: "#d9d9d9", // white with slight warmth
+        500: "#ffffff", // pure white
+      },
+      slate: {
+
+      },
       "theme-green": {
         primary: "#316b38", // Background primary
         secondary: "#b3f2b3", // Background secondary
