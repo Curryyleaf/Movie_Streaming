@@ -1,6 +1,6 @@
 // /src/stores/moviesStore.js
 import { defineStore } from "pinia";
-import axios from "axios";
+import api from "../Service/api";
 
 export const useMoviesStore = defineStore("movies", {
   state: () => ({
@@ -21,7 +21,7 @@ export const useMoviesStore = defineStore("movies", {
     async fetchMovies() {
       this.loading = true;
       try {
-        const response = await axios.get("");
+        const response = await api.get("");
 
         this.movies = response;
       } catch (error) {
@@ -30,14 +30,16 @@ export const useMoviesStore = defineStore("movies", {
         this.loading = false;
       }
     },
-    async fetchPopularCeleb() {
-      try {
-        const response = await axios.get("/person/popular");
-        this.popularCeleb = response.data.results;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+async fetchPopularCeleb() {
+  try {
+    const response = await api.get("/person/popular");
+    console.log("Full Response:", response); 
+    this.popularCeleb = response.data.results;
+  } catch (error) {
+    console.log("Failed to fetch popular celebrities:", error);
+  }
+},
+
     // selectCelebSingleProfile(id) {
     //   console.log("Selecting ID:", id); // Log the incoming ID
     //   this.popularCelebId = id;
@@ -65,7 +67,7 @@ export const useMoviesStore = defineStore("movies", {
     // },
     async fetchPopularCelebSoloImage() {
       try {
-        const response = await axios.get(
+        const response = await api.get(
           `/person/${this.popularCelebId}/images`
         );
         console.log("images you looking for", response.data.profiles);
