@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 // import Home from "../views/Home.vue";
-import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
-import LandingPage from "../views/LandingPage.vue";
+import Home from "../views/LandingPage.vue";
 import Cookies from "vue-cookies"; 
 import CelebSingleProfile from "../views/CelebSingleProfile.vue";
 
@@ -11,7 +10,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: LandingPage,
+    component: Home,
     meta: { requiresAuth: true },
     children: [],
   },

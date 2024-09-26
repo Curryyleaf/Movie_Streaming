@@ -29,7 +29,7 @@
 <div
   v-for="celeb in cards"
   :key="celeb.id"
-  class="flex-shrink-0 flex flex-col justify-center items-center w-52 h-52 hover:cursor-pointer"
+  class="flex-shrink-0 flex flex-col  items-center w-48 h-48 hover:cursor-pointer"
 >
   <img
     @click="navigateToProfile(celeb.id)"
@@ -44,41 +44,52 @@
     </article>
   </div>
 </template>
-
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useMoviesStore } from "../store/MovieStore";
 import { nextTick } from "vue";
+import { mapState, mapActions } from "pinia";
 
 export default {
   name: "CelebGrid",
   data() {
     return {
-      carouselStyles: {},  // To store carousel style
-      slide: null,         // Will store the calculated slide width
-      cards: [],           // Cards data array
+      carouselStyles: {},  
+      slide: null,
+      cards: [],           
     };
   },
   components: {
     Icon,
   },
-  methods: {
+  computed: {
+    // Map state from Pinia store using mapState helper
+    ...mapState(useMoviesStore, {
+      popularCeleb: (store) => store.popularCeleb,
+      loading: (store) => store.loading,
+    }),
 
-    profileSlider() {
+    imageUrl() {
+      return import.meta.env.VITE_API_IMAGE_URL;
+    },
+  },
+  methods: {
+    // Map actions from Pinia store
+    ...mapActions(useMoviesStore, ['fetchPopularCeleb']),
+
+    async profileSlider() {
       this.moveLeft();
       this.afterTransition(() => {
-
         const card = this.cards.shift();
         this.cards.push(card);
         this.resetTranslate();
       });
     },
 
-  
     async assignData() {
-      const store = useMoviesStore();
-      await store.fetchPopularCeleb();
-      this.cards = store.popularCeleb;
+      // Fetch data from the store and assign to local data
+      await this.fetchPopularCeleb();
+      this.cards = this.popularCeleb;
     },
 
     async setStep() {
@@ -91,11 +102,10 @@ export default {
     moveLeft() {
       this.carouselStyles = {
         transform: `translateX(-${this.slide})`,
-        transition: "transform 0.5s ease-in-out",  
+        transition: "transform 0.5s ease-in-out",
       };
     },
 
-    //tihs one here  Executes callback after transition completes
     afterTransition(callback) {
       const listener = () => {
         callback();
@@ -104,40 +114,19 @@ export default {
       this.$refs.innerWrapper.addEventListener("transitionend", listener);
     },
 
-    // Navigates to profile based on celeb ID
     async navigateToProfile(id) {
       const store = useMoviesStore();
       store.popularCelebId = id;
       await this.$router.push({ name: "CelebSingleProfile" });
     },
 
-
     resetTranslate() {
-
       this.carouselStyles = {
         transform: "translateX(0)",
-        transition: "none",  
+        transition: "none",
       };
-
-   
-      this.$refs.innerWrapper.offsetHeight;
-
       // Re-enable transition for the next slide
-      // this.carouselStyles.transition = "transform 0.5s ease-in-out";
-    },
-  },
-
-  computed: {
-    imageUrl() {
-      return import.meta.env.VITE_API_IMAGE_URL;
-    },
-    popularCeleb() {
-      const store = useMoviesStore();
-      return store.popularCeleb;
-    },
-    loading() {
-      const store = useMoviesStore();
-      return store.loading;
+      this.$refs.innerWrapper.offsetHeight; // force reflow
     },
   },
 
@@ -147,3 +136,4 @@ export default {
   },
 };
 </script>
+

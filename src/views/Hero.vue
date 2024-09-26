@@ -127,8 +127,11 @@ import axios from "axios";
 import { useMoviesStore } from "../store/MovieStore.js";
 export default {
   components: { FontAwesomeIcon, Icon },
+
   data() {
+      const store=useMoviesStore()
     return {
+     store ,
       faChevronLeft,
       faChevronRight,
       images: [],
@@ -186,8 +189,7 @@ export default {
           {
             headers: {
               accept: "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NzBhNjY0NWVlZTQ2ZGQ4MjFhNjE5YjExZTkxNjBlMyIsIm5iZiI6MTcyNjU1MjY0Ny42NjAwODgsInN1YiI6IjY2ZTdjOTQxMzc2OGE3M2Y4ZDkxYjJkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M8KaPaJ-9kj1418x-3NxT5ovPfw8prGY_jKyXaBNwQM",
+              Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
             },
           }
         );
@@ -223,10 +225,10 @@ export default {
   },
 
   async mounted() {
-    // Simulate fetching images from API
-    const store = useMoviesStore();
+
+
     await this.fetchImages();
-    await store.fetchPopularCeleb();
+    await this.store.fetchPopularCeleb();
 
     if (this.images.length) {
       this.currentImage = this.images[this.currentIndex];
@@ -242,3 +244,6 @@ export default {
 };
 </script>
 
+<style>
+
+</style>

@@ -1,62 +1,81 @@
 <template>
-  <nav class="w-full box-border  text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-4 items-center">
-    <a href="">
-      <svg
-        fill="#1d1b8d"
-        height="34px"
-        width="64px"
-        version="1.1"
-        id="Icons"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 32 32"
-        xml:space="preserve"
-        stroke="#1d1b8d"
-      >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g
-          id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></g>
-        <g id="SVGRepo_iconCarrier">
-          <path
-            d="M31,4H1C0.4,4,0,4.4,0,5v22c0,0.6,0.4,1,1,1h30c0.6,0,1-0.4,1-1V5C32,4.4,31.6,4,31,4z M10,23v3H7v-3H10z M12,23h3v3h-3V23z M17,23h3v3h-3V23z M22,23h3v3h-3V23z M22,9V6h3v3H22z M20,9h-3V6h3V9z M15,9h-3V6h3V9z M10,9H7V6h3V9z M30,9h-3V6h3V9z M5,6v3H2V6 H5z M2,23h3v3H2V23z M27,26v-3h3v3H27z"
-          ></path>
-        </g>
-      </svg>
+  <nav
+    class="w-full box-border text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-3 items-center"
+  >
+    <a href="" class="px-6" @click="navigateToHome">
+      <Icon
+        icon="ri:movie-line"
+        width="48"
+        height="48"
+        style="color: #0000ff"
+      />
     </a>
-    <label for="">
-      <font-awesome-icon :icon="['fas', 'bars']" />
-      <span>Menu</span>
+    <label for=" " class="pr-4">
+      <font-awesome-icon
+        :icon="['fas', 'bars']"
+        class="text-lg text-center pr-2"
+      />
+      <span class=" text-lg">Menu</span>
     </label>
-    <div class="flex flex-1 rounded-lg bg-white  items-center ">
-      <p class=" font-medium px-2">All</p>
-      <font-awesome-icon :icon="['fas', 'caret-down']" />
-      <input type="text" class="w-auto flex bg-white flex-1" />
-      <button class="box-border bg-white flex items-center justify-center h-6 w-6">
-        <font-awesome-icon :icon="['fas', 'magnifying-glass']" size="sm" class=" "  />
+
+    <!-- input search section -->
+    <div
+      class="flex rounded-lg h-8 w-1/2 mr-auto box-border bg-white items-center"
+    >
+      <div class="flex justify-center h-full items-center px-2">
+        <p class="text-base font-medium text-black pr-1">All</p>
+        <Icon icon="flowbite:caret-down-solid" class="text-black" />
+      </div>
+      <input
+        type="text"
+        placeholder="search movies"
+        class="w-auto flex flex-grow  bg-white py-1 pl-2 flex-1 h-full border-l border-double border-black"
+      />
+      <button
+        class="box-border bg-white flex mr-2 rounded-lg h-full items-center justify-center w-6"
+      >
+        <Icon
+          icon="prime:search"
+          width="48"
+          height="48"
+          class="text-gray-400"
+        />
       </button>
     </div>
-    <div class="flex items-center ">
-      <font-awesome-icon :icon="['far', 'bookmark']" class="pr-2" />
-      <p>Watch List</p>
+
+    <!-- sign in section -->
+    <div class="flex gap-6">
+      <h1 class="font-semibold pr-4 border-r-2 border-gray-500 border-solid">MoviePro</h1>
+      <div class="flex  items-center">
+        <font-awesome-icon :icon="['far', 'bookmark']" class="pr-2" />
+        <p>Watch List</p>
+      </div>
+      <a href="">Sign In</a>
+      <label for="" class="flex justify-center items-center">
+        <span>EN</span
+        ><font-awesome-icon
+          class="place-self-start px-1"
+          :icon="['fas', 'sort-down']"
+        />
+      </label>
     </div>
-    <a href="">Sign In</a>
-    <label for="" class="flex justify-center items-center">
-      <span>EN</span><font-awesome-icon class="place-self-start px-1" :icon="['fas', 'sort-down']" />
-    </label>
   </nav>
 </template>
 <script>
 import Sidebar from "../components/Sidebar.vue";
-
+import { Icon } from "@iconify/vue/dist/iconify.js";
 export default {
   components: {
     Sidebar,
+    Icon,
   },
   data() {
     return {};
   },
+  methods:{
+    navigateToHome(){
+      this.$router.push({ name: "Home" });
+    }
+  }
 };
 </script>

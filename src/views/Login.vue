@@ -114,13 +114,7 @@ export default {
       }
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/authentication/token/new`,
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
-            },
-          }
+          `/authentication/token/new`,
         );
         console.log("responses", response);
 
@@ -140,7 +134,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "https://api.themoviedb.org/3/authentication/session/new",
+          "/authentication/session/new",
           {
             request_token: this.$cookies.get("requestToken"),
           },

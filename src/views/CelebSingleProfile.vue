@@ -4,12 +4,12 @@
 
     <article ref="topContainer" class="w-11/12 mx-auto pt-3 z-10">
       <div class="flex w-full  items-center">
-        <ul class="w-2/5 ml-auto space-x-4 text-base flex items-center justify-between">
+        <ul class="w-2/5 ml-auto space-x-4  text-base flex items-center justify-between">
           <li class="flex space-x-1 divide-solid divide-gray-300 divide-x items-center">
-            <a href="" class="m-1 pl-2">Biography</a>
-            <a href="" class="m-1 pl-2">Awards</a>
-            <a href="" class="m-1 pl-2">Trivia</a>
-            <a href="" class="m-1 pl-2">FAQ</a>
+            <a href="" class="m-1 px-2">Biography</a>
+            <a href="" class="m-1 px-2">Awards</a>
+            <a href="" class="m-1 px-2">Trivia</a>
+            <a href="" class="m-1 px-2">FAQ</a>
           </li>
           <li>
             <a href="">IMDBPro</a>
@@ -39,13 +39,13 @@
         <aside class="py-2">
           <h1 class="text-5xl font-semibold tracking-wide text-white">
             {{ profileData.name }}
-            <span class="text-base text-center">(---- / ----)</span>
+            <span class="text-base text-center"></span>
           </h1>
           <p class="pl-2">{{ profileData.known_for_department }}</p>
         </aside>
         <aside class="flex items-center ml-auto">
           <div>
-            <span class="block leading-none">IMDBPro</span>
+            <span class="block leading-none">MOVIEPro</span>
             <span class="block leading-none">startMeter</span>
           </div>
 
@@ -100,13 +100,13 @@
           class="col-span-2 space-y-1 sm:col-span-2 lg:order-3 lg:col-span-1"
         >
           <aside
-            class="h-1/2 w-full border-0 bg-black-400 rounded-lg shadow-sm flex items-center justify-center relative"
+            class="h-1/2 w-full border-0 bg-black-400 rounded-sm shadow-sm flex items-center justify-center relative"
           >
             <Icon icon="ic:baseline-photo-library" class="text-5xl" />
             <p>{{}}photos</p>
           </aside>
           <aside
-            class="h-1/2 w-full flex shadow-sm bg-black-400 rounded-lg items-center justify-center relative"
+            class="h-1/2 w-full flex shadow-sm bg-black-400 rounded-sm items-center justify-center relative"
           >
             <Icon icon="material-symbols:video-library" class="text-5xl" />
             <p>{{}}videos</p>
