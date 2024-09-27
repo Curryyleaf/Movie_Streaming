@@ -4,7 +4,7 @@
    </header >
    <main class="w-full box-border h-auto  pl-4 pr-2 p-0">
        <Hero></Hero>
-       <CelebList></CelebList>
+     
 
     </main>
     <footer>

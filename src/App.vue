@@ -1,24 +1,36 @@
 <template>
-<section  class=" w-full h-full  box-border m-0 p-0">
-   <Nav v-if="!hideNavbar" ></Nav>
+<section  class=" w h-full overflow-clip box-border m-0 p-0">
+   <Nav v-if="!hideNavbar && !showMenu" @openModal="handleModal" ></Nav>
+   <Menu v-if="showMenu" @closeModal="handleModal"  ></Menu>
     <router-view></router-view>
+ <CelebProfiles></CelebProfiles>
   </section>
 </template>
 
 <script>
-import CelebSingleProfile from "./views/CelebSingleProfile.vue";
+import CelebProfiles from "./views/CelebProfiles.vue";
+
 import LandingPage from "./views/LandingPage.vue";
+import Menu from "./views/Menu.vue";
 import Nav from "./views/Nav.vue";
 
-
 export default {
-  components: { LandingPage  , CelebSingleProfile , Nav},
+  components: { LandingPage  , CelebProfiles , Nav , Menu},
   data() { 
-    return {};
+    return {
+      showMenu:false
+    };
   },
   computed:{
    hideNavbar(){
       return this.$route.meta.hideNavbar
+   }
+  } ,
+  methods:{
+   handleModal(){
+      console.log('model use');
+      
+      this.showMenu=!this.showMenu
    }
   }
 };

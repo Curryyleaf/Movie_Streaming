@@ -2,7 +2,7 @@
   <nav
     class="w-full box-border text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-3 items-center"
   >
-    <a href="" class="px-6" @click="navigateToHome">
+    <a href="" class="px-6 hover:cursor-pointer" @click="navigateToHome">
       <Icon
         icon="ri:movie-line"
         width="48"
@@ -10,10 +10,11 @@
         style="color: #0000ff"
       />
     </a>
-    <label for=" " class="pr-4">
+    <label for=" " class="pr-4 hover:cursor-pointer">
       <font-awesome-icon
         :icon="['fas', 'bars']"
         class="text-lg text-center pr-2"
+        @click="openCategories"
       />
       <span class=" text-lg">Menu</span>
     </label>
@@ -46,7 +47,7 @@
     <!-- sign in section -->
     <div class="flex gap-6">
       <h1 class="font-semibold pr-4 border-r-2 border-gray-500 border-solid">MoviePro</h1>
-      <div class="flex  items-center">
+      <div class="flex hover:cursor-pointer hover:text-gray-400 items-center" @click="navigateToWatchList">
         <font-awesome-icon :icon="['far', 'bookmark']" class="pr-2" />
         <p>Watch List</p>
       </div>
@@ -73,8 +74,14 @@ export default {
     return {};
   },
   methods:{
+    navigateToWatchList(){
+ this.$router.push({ name: "WatchList" });
+    } ,
     navigateToHome(){
       this.$router.push({ name: "Home" });
+    } ,
+    openCategories(){
+      this.$emit('openModal')
     }
   }
 };

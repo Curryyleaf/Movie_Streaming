@@ -70,7 +70,7 @@ async fetchPopularCeleb() {
         const response = await api.get(
           `/person/${this.popularCelebId}/images`
         );
-        console.log("images you looking for", response.data.profiles);
+    
 
         this.popularCelebSoloImage = response.data.profiles;
       } catch (error) {

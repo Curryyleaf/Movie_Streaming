@@ -4,7 +4,8 @@ import Login from "../views/Login.vue";
 import Home from "../views/LandingPage.vue";
 import Cookies from "vue-cookies"; 
 import CelebSingleProfile from "../views/CelebSingleProfile.vue";
-
+import MovieDetail from "../views/MovieDetails.vue";
+import WatchList from "../views/WatchList.vue";
 
 const routes = [
   {
@@ -12,7 +13,14 @@ const routes = [
     name: "Home",
     component: Home,
     meta: { requiresAuth: true },
-    children: [],
+
+  },
+  {
+    path: "/watchList",
+    name: "WatchList",
+    component: WatchList,
+    meta: { requiresAuth: true },
+
   },
 
   {
@@ -20,6 +28,12 @@ const routes = [
     name: "Login",
     component: Login,
     meta: { hideNavbar: true },
+  },
+  {
+    path: "/movie/:id",
+    name: "MovieDetail",
+    component: MovieDetail,
+    props: true,
   },
   {
     path: "/celebSingle",

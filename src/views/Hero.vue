@@ -10,11 +10,15 @@
         >
           <!-- left overlay image -->
           <div class="absolute flex-col bottom-0 pl-9 w-full">
-            <div class="relative box-border flex bottom-0 w-1/5 left-5">
+            <div
+              class="relative box-border flex bottom-0 w-1/5 left-5"
+              @click="navigateToDetail(currentImage.id)"
+            >
               <img
                 :src="`https://image.tmdb.org/t/p/original${currentImage.poster_path}`"
                 alt="poster"
-                class="object-center transition duration-200 ease-in-out object-contain"
+                class="object-center ease-in-out object-contain hover:cursor-pointer"
+
               />
               <font-awesome-icon
                 :icon="['fas', 'plus']"
@@ -59,7 +63,8 @@
           <img
             :src="`https://image.tmdb.org/t/p/original${currentImage.backdrop_path}`"
             alt="Hero Background"
-            class="w-full h-full transition duration-200 ease-in-out object-center object-cover"
+            @click="navigateToDetail(currentImage.id)"
+            class="w-full h-full ease-in-out object-center hover:cursor-pointer object-cover"
           />
           <button
             @click="navigateToPrevious"
@@ -97,11 +102,11 @@
             :key="image.id"
             class="h-max rounded-lg w-full"
           >
-            <div class="w-full flex p-2 items-center">
+            <div class="w-full flex p-2 items-center" @click="navigateToDetail(image.id)">
               <img
                 :src="`https://image.tmdb.org/t/p/original${image.backdrop_path}`"
                 alt="Thumbnail"
-                class="w-20 h-28 transition duration-200 ease-in-out object-center object-cover"
+                class="w-20 h-28 ease-in-out object-center cursor-pointer object-cover"
               />
               <div class="ml-2">
                 <h1 class="text-lg">Movie Title</h1>
@@ -123,15 +128,15 @@ import {
   faChevronLeft,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import api from "../Service/api.js";
 import { useMoviesStore } from "../store/MovieStore.js";
 export default {
   components: { FontAwesomeIcon, Icon },
 
   data() {
-      const store=useMoviesStore()
+    const store = useMoviesStore();
     return {
-     store ,
+      store,
       faChevronLeft,
       faChevronRight,
       images: [],
@@ -142,6 +147,7 @@ export default {
   },
 
   methods: {
+
     startRotation() {
       this.intervalId = setInterval(() => {
         // Preload the next 3 images in advance
@@ -176,26 +182,17 @@ export default {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
       this.currentImage = this.images[this.currentIndex];
     },
-    navigateToDetail() {
+    navigateToDetail(id) {
       if (this.currentImage && this.currentImage.id) {
-        const movieId = this.currentImage.id;
-        this.$router.push({ name: "MovieDetail", params: { id: movieId } });
+        this.$router.push({ name: "MovieDetail", params: { id: id } });
       }
     },
     async fetchImages() {
       try {
-        const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/now_playing",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
-            },
-          }
-        );
+        const response = await api.get("/movie/now_playing");
         this.images = response.data.results;
-        console.log("response results", response.data.results);
-        console.log("thisimages", this.images);
+      console.log("you ar elooking for this mm f" , response);
+      
       } catch (error) {
         console.log(error);
       }
@@ -225,8 +222,6 @@ export default {
   },
 
   async mounted() {
-
-
     await this.fetchImages();
     await this.store.fetchPopularCeleb();
 
@@ -244,6 +239,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
