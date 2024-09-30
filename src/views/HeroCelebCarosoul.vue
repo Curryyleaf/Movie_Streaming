@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full relative mt-20  px-4">
+  <div class="w-full relative mt-10 px-4">
     <h2
-      class="relative pl-4 mb-7 text-4xl text-white before:absolute  before:left-0 before:top-1/2 before:transform before:-translate-y-1/2 before:h-full before:w-1 before:bg-yellow-500"
+      class="relative pl-4 mb-7 text-4xl text-white before:absolute before:left-0 before:top-1/2 before:transform before:-translate-y-1/2 before:h-full before:w-1 before:bg-yellow-500"
     >
       Most popular celebrities
     </h2>
@@ -21,26 +21,25 @@
       </div>
 
       <!-- Carousel container -->
-      <main
-        class="whitespace-nowrap mt-2 w-full transition-transform duration-200 ease-in-out inline-flex space-x-4"
+      <div
+        class=" mt-2 w-full ml-36 transition-transform duration-200 ease-in-out inline-flex space-x-4"
         ref="innerWrapper"
         :style="carouselStyles"
       >
-<div
-  v-for="celeb in cards"
-  :key="celeb.id"
-  class="flex-shrink-0 flex flex-col  items-center w-48 h-48 hover:cursor-pointer"
->
-  <img
-    @click="navigateToProfile(celeb.id)"
-    :src="`${imageUrl}/t/p/w185${celeb.profile_path}`"
-    alt=""
-    class="w-44 h-44 rounded-full object-center object-cover"
-  />
-  <h4 class="text-white text-lg text-center p-2">{{ celeb.name }}</h4>
-</div>
-
-      </main>
+        <div
+          v-for="celeb in cards"
+          :key="celeb.id"
+          class="flex-shrink-0 flex flex-col items-center  hover:cursor-pointer"
+        >
+          <img
+            @click="navigateToProfile(celeb.id)"
+            :src="`${imageUrl}/t/p/w185${celeb.profile_path}`"
+            alt=""
+            class="w-44 h-44 rounded-full object-center object-cover"
+          />
+          <h4 class="text-white text-lg text-center p-2">{{ celeb.name }}</h4>
+        </div>
+      </div>
     </article>
   </div>
 </template>
@@ -54,9 +53,9 @@ export default {
   name: "CelebGrid",
   data() {
     return {
-      carouselStyles: {},  
+      carouselStyles: {},
       slide: null,
-      cards: [],           
+      cards: [],
     };
   },
   components: {
@@ -73,7 +72,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useMoviesStore, ['fetchPopularCeleb']),
+    ...mapActions(useMoviesStore, ["fetchPopularCeleb"]),
 
     async profileSlider() {
       this.moveLeft();
@@ -122,7 +121,7 @@ export default {
         transform: "translateX(0)",
         transition: "none",
       };
-      this.$refs.innerWrapper.offsetHeight; w
+      this.$refs.innerWrapper.offsetHeight;
     },
   },
 
@@ -132,4 +131,3 @@ export default {
   },
 };
 </script>
-

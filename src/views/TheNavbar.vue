@@ -51,7 +51,7 @@
         <font-awesome-icon :icon="['far', 'bookmark']" class="pr-2" />
         <p>Watch List</p>
       </div>
-      <a href="">Sign In</a>
+      <button @click="logout">Log out</button>
       <label for="" class="flex justify-center items-center">
         <span>EN</span
         ><font-awesome-icon
@@ -83,6 +83,17 @@ export default {
     openCategories(){
       this.$emit('openModal')
     }
+  }, 
+  computed:{
+    logout(){
+      this.$cookies.remove('requestToken');
+      this.$router.push({name:'Login'})
+
+    } , 
+       canLogOut(){
+      this.$cookies.get('requestToken')
+    } ,
+
   }
 };
 </script>

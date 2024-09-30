@@ -13,7 +13,7 @@
           :key="index"
           class="hover:bg-gray-700 rounded"
         >
-          <a @click="navigate(item.routeName)" class="block py-2 text-left  cursor-pointer">
+          <a @click="navigate(item.routeName)" class="block py-2 text-left text-wrap whitespace-pre-wrap max-w-48 cursor-pointer">
             {{ item.anchorText }}
           </a>
         </li>

@@ -143,8 +143,7 @@ export default {
         console.log("tokeeeen ", response);
 
         const requestToken = response.data.request_token;
-        localStorage.set("requestToken", requestToken);
-        // // Step 2: Redirect user to authorize the request token
+        this.$cookies.set("requestToken", requestToken);
         window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/`;
         console.log("we are redirecting");
       } catch (error) {
@@ -199,16 +198,16 @@ export default {
   mounted() {
     console.log("mountedd");
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const approved = urlParams.get("approved");
+  const urlParams = new URLSearchParams(window.location.search);
+  const approved = urlParams.get("approved");
 
-    if (approved === "true") {
-      console.log("url params", urlParams);
+  if (approved === "true") {
+    console.log("url params", urlParams);
 
-      this.createSession();
-    } else {
-      console.log("User did not approve the request.");
-    }
+    this.createSession();
+  } else {
+    console.log("User did not approve the request.");
+  }
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <section class="relative w-full pt-2 box-border flex flex-row">
-    <main class="h-[530px]overflow-clip flex w-full">
+    <main class="h-[550px] overflow-clip flex w-full">
       <div class="w-[75%]">
         <div v-for="(image, index) in imageArray">
           <div class="h-full w-full relative bg-black overflow-hidden">
@@ -76,7 +76,7 @@
               </button>
               <button
                 @click="navigateToNext"
-                class="text-white px-2 py-6 opacity-40 absolute top-[30%] right-0 rounded"
+                class="text-white px-2 py-6 opacity-40 absolute top-[20%] right-0 rounded"
               >
                 <font-awesome-icon :icon="faChevronRight" />
               </button>
