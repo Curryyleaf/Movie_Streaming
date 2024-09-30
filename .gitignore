@@ -14,13 +14,14 @@ dist-ssr
 *.local
 
 # Editor directories and files
+src/views/rough.vue
 src/views/rought.txt
 src/views/Practice.vue
-src/views/rough.vue
 src/views/roughh.vue
 src/views/temporaray.vue
 src/store/Storecomposable.vue
 src/Service/authService.vue
+
 
 Notes
 
