@@ -22,7 +22,7 @@
 
       <!-- Carousel container -->
       <div
-        class=" mt-2 w-full ml-36 transition-transform duration-200 ease-in-out inline-flex space-x-4"
+        class="whitespace-nowrap mt-2 w-full transition-transform duration-200 ease-in-out inline-flex space-x-4"
         ref="innerWrapper"
         :style="carouselStyles"
       >
