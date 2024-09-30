@@ -1,6 +1,6 @@
 <template>
   <section class="relative w-full pt-2 box-border flex flex-row">
-    <main class="h-[550px] overflow-clip flex w-full">
+    <main class="overflow-clip flex w-full">
       <div class="w-[75%]">
         <div v-for="(image, index) in imageArray">
           <div class="h-full w-full relative bg-black overflow-hidden">
@@ -16,7 +16,7 @@
                   <img
                     :src="`https://image.tmdb.org/t/p/original${image.poster_path}`"
                     alt="poster"
-                    class="object-center   object-contain hover:cursor-pointer mySlides fade"
+                    class="object-center object-contain hover:cursor-pointer mySlides fade"
                     :style="{
                       display: currentIndex === index ? 'block' : 'none',
                     }"
@@ -60,26 +60,39 @@
             </div>
 
             <!--  poster image section  -->
-            <div>
+            <div class="min-h-fit">
               <img
                 :src="`https://image.tmdb.org/t/p/original${image.backdrop_path}`"
                 alt="Hero Background"
                 @click="navigateToDetail(image.id)"
-                class="w-full h-full  object-center hover:cursor-pointer object-cover mySlides fade"
+                class="w-full h-full object-center hover:cursor-pointer object-cover mySlides fade"
                 :style="{ display: currentIndex === index ? 'block' : 'none' }"
               />
-              <button
-                @click="navigateToPrevious"
-                class="text-white px-2 py-6 absolute opacity-40 top-[20%] left-0 rounded"
+              <span
+              
+                class="text-white hover:cursor-pointer z-50 px-2 py-6 absolute opacity-40 top-[20%] left-0 rounded"
               >
-                <font-awesome-icon :icon="faChevronLeft" />
-              </button>
-              <button
-                @click="navigateToNext"
-                class="text-white px-2 py-6 opacity-40 absolute top-[20%] right-0 rounded"
+                <Icon
+                   @click="navigateToPrevious"
+                  icon="iconamoon:arrow-left-2-bold"
+                  width="48"
+                  height="48"
+                  class="text-white z-10 hover:text-green-500"
+                />
+              </span>
+
+              <span
+               
+                class="text-white px-2 py-6 hover:cursor-pointer z-50 opacity-40 absolute top-[20%] right-0 rounded"
               >
-                <font-awesome-icon :icon="faChevronRight" />
-              </button>
+                <Icon
+                 @click="navigateToNext"
+                  icon="iconamoon:arrow-right-2-bold"
+                  width="48"
+                  height="48"
+                  class="text-white z-10 hover:text-green-500"
+                />
+              </span>
             </div>
           </div>
         </div>
@@ -175,14 +188,15 @@ export default {
       });
     },
     navigateToPrevious() {
+      console.log("prev called");
+
       this.currentIndex =
         (this.currentIndex - 1 + this.imageArray.length) %
         this.imageArray.length;
-      this.currentImage = this.imageArray[this.currentIndex];
     },
     navigateToNext() {
+      console.log("next called");
       this.currentIndex = (this.currentIndex + 1) % this.imageArray.length;
-      this.currentImage = this.imageArray[this.currentIndex];
     },
     navigateToDetail(id) {
       if (id) {
@@ -240,7 +254,7 @@ export default {
 
 <style>
 .myslide {
-opacity: 0;
+  opacity: 0;
 }
 .fade {
   animation-name: fade;
