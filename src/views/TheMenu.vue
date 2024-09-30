@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full bg-black flex  h-full text-white box-border m-0 p-0">
+  <section class="w-full bg-black flex  h-full text-white box-border  z-50 p-12">
     <!-- movie section -->
     <Sidebar  :menuItems="movieItems" title="Movie">
       <template v-slot:icon>
@@ -44,7 +44,7 @@
 
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import Sidebar from "../components/Sidebar.vue";
+import Sidebar from "../components/AppSideModal.vue";
 export default {
   components: { Sidebar, Icon },
   data() {

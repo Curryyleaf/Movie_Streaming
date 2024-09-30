@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="w-full box-border text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-3 items-center"
+    class="w-full box-border sticky top-0 z-50 text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-3 items-center"
   >
     <a href="" class="px-6 hover:cursor-pointer" @click="navigateToHome">
       <Icon
@@ -63,7 +63,7 @@
   </nav>
 </template>
 <script>
-import Sidebar from "../components/Sidebar.vue";
+import Sidebar from "../components/AppSideModal.vue";
 import { Icon } from "@iconify/vue/dist/iconify.js";
 export default {
   components: {

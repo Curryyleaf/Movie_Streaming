@@ -1,21 +1,19 @@
 <template>
-<section  class=" w h-full overflow-clip box-border m-0 p-0">
-   <Nav v-if="!hideNavbar && !showMenu" @openModal="handleModal" ></Nav>
+<section  class=" w h-full  box-border m-0 p-0">
+   <Navbar v-if="!hideNavbar && !showMenu" @openModal="handleModal" ></Navbar>
    <Menu v-if="showMenu" @closeModal="handleModal"  ></Menu>
     <router-view></router-view>
- <CelebProfiles></CelebProfiles>
+
   </section>
 </template>
 
 <script>
-import CelebProfiles from "./views/CelebProfiles.vue";
 
-import LandingPage from "./views/LandingPage.vue";
-import Menu from "./views/Menu.vue";
-import Nav from "./views/Nav.vue";
+import Menu from "./views/TheMenu.vue";
+import Navbar from "./views/TheNavbar.vue";
 
 export default {
-  components: { LandingPage  , CelebProfiles , Nav , Menu},
+  components: {   Navbar , Menu},
   data() { 
     return {
       showMenu:false

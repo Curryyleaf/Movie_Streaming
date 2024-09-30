@@ -3,9 +3,13 @@
     <!-- Header Section -->
 
     <article ref="topContainer" class="w-11/12 mx-auto pt-3 z-10">
-      <div class="flex w-full  items-center">
-        <ul class="w-2/5 ml-auto space-x-4  text-base flex items-center justify-between">
-          <li class="flex space-x-1 divide-solid divide-gray-300 divide-x items-center">
+      <div class="flex w-full items-center">
+        <ul
+          class="w-2/5 ml-auto space-x-4 text-base flex items-center justify-between"
+        >
+          <li
+            class="flex space-x-1 divide-solid divide-gray-300 divide-x items-center"
+          >
             <a href="" class="m-1 px-2">Biography</a>
             <a href="" class="m-1 px-2">Awards</a>
             <a href="" class="m-1 px-2">Trivia</a>
@@ -144,7 +148,6 @@
         <main class="h-52 w-full">
           <ul class="flex w-full flex-wrap">
             <li class="m-2" v-for="photo in profileImages">
-           
               <img
                 :src="`https://image.tmdb.org/t/p/w185${photo.file_path}`"
                 class="object-cover object-center"
@@ -171,20 +174,17 @@ export default {
       h: [],
     };
   },
-  methods: {
-
-  },
+  methods: {},
   computed: {
-        profileImages() {
+    profileImages() {
       const store = useMoviesStore();
-      let images =store.popularCelebSoloImage 
-      if(images.length>10){
-         images =    store.popularCelebSoloImage.slice(0 , 9)
-      }else{
-        return images
-        
+      let images = store.popularCelebSoloImage;
+      if (images.length > 10) {
+        images = store.popularCelebSoloImage.slice(0, 9);
+      } else {
+        return images;
       }
-      return images
+      return images;
     },
     async findHeight() {
       await nextTick();
@@ -207,7 +207,6 @@ export default {
   },
   mounted() {},
   watch: {
-    // Optionally watch for changes in profileData or other data that affects rendering
   },
   created() {
     const store = useMoviesStore();

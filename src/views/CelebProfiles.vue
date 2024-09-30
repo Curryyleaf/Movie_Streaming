@@ -63,7 +63,6 @@ export default {
     Icon,
   },
   computed: {
-    // Map state from Pinia store using mapState helper
     ...mapState(useMoviesStore, {
       popularCeleb: (store) => store.popularCeleb,
       loading: (store) => store.loading,
@@ -74,7 +73,6 @@ export default {
     },
   },
   methods: {
-    // Map actions from Pinia store
     ...mapActions(useMoviesStore, ['fetchPopularCeleb']),
 
     async profileSlider() {
@@ -87,7 +85,6 @@ export default {
     },
 
     async assignData() {
-      // Fetch data from the store and assign to local data
       await this.fetchPopularCeleb();
       this.cards = this.popularCeleb;
     },
@@ -125,8 +122,7 @@ export default {
         transform: "translateX(0)",
         transition: "none",
       };
-      // Re-enable transition for the next slide
-      this.$refs.innerWrapper.offsetHeight; // force reflow
+      this.$refs.innerWrapper.offsetHeight; w
     },
   },
 

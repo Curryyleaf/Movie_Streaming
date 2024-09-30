@@ -4,7 +4,7 @@
    </header >
    <main class="w-full box-border h-auto  pl-4 pr-2 p-0">
        <Hero></Hero>
-     
+     <CelebList></CelebList>
 
     </main>
     <footer>
@@ -17,12 +17,11 @@
 
 <script>
 import { useMoviesStore } from '../store/MovieStore.js';
-import Hero from '../views/Hero.vue';
-import Nav from '../views/Nav.vue';
+import Hero from '../views/TheHero.vue';
 import CelebList from './CelebProfiles.vue';
 
 export default {
-  components:{Nav , Hero , CelebList} ,
+  components:{ Hero , CelebList} ,
   name: 'App',
   methods:{
   async  fetch(){

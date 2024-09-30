@@ -1,14 +1,27 @@
 <template>
-  <div class="flex justify-center items-center min-h-screen  bg-black-100 p-4">
-    <div class="bg-black rounded-lg shadow-lg text-white  p-8  sm:max-w-xs lg:w-[30%] sm:max-h-[80dvh] mx-auto" >
+  <div class="flex justify-center items-center h-full bg-black-100 p-4">
+    <div
+      class="bg-black rounded-lg shadow-lg text-white p-8 sm:max-w-xs lg:w-[30%] sm:max-h-[80dvh] mx-auto"
+    >
       <div class="flex justify-center sm:mb-2 mb-4">
-        <Icon icon="cbi:movies-anywhere" width="4rem" height="4rem"  class="text-white"/>
+        <Icon
+          icon="cbi:movies-anywhere"
+          width="4rem"
+          height="4rem"
+          class="text-white"
+        />
       </div>
 
-      <h2 class="text-3xl  font-bold text-center  text-white mb-6 sm:mb-2">Login</h2>
+      <h2 class="text-3xl font-bold text-center text-white mb-6 sm:mb-2">
+        Login
+      </h2>
       <form @submit.prevent="handleLogin" class="flex flex-col">
         <div class="mb-4 sm:mb-2">
-          <label for="username" class="block text-md text-left text-gray-300 font-medium">Username</label>
+          <label
+            for="username"
+            class="block text-md text-left text-gray-300 font-medium"
+            >Username</label
+          >
           <input
             type="text"
             id="username"
@@ -20,7 +33,11 @@
           />
         </div>
         <div class="mb-4 sm:mb-2">
-          <label for="password" class="block text-md text-left text-gray-300 font-medium">Password</label>
+          <label
+            for="password"
+            class="block text-md text-left text-gray-300 font-medium"
+            >Password</label
+          >
           <input
             type="password"
             id="password"
@@ -38,7 +55,9 @@
             v-model="rememberMe"
             class="mr-2 leading-tight text-green-400"
           />
-          <label for="rememberMe" class="text-sm text-gray-400">Remember me</label>
+          <label for="rememberMe" class="text-sm text-gray-400"
+            >Remember me</label
+          >
         </div>
         <button
           type="submit"
@@ -47,30 +66,32 @@
           Login
         </button>
       </form>
-      <p v-if="error" class="text-red-500 text-sm text-center mt-4">{{ error }}</p>
+      <p v-if="error" class="text-red-500 text-sm text-center mt-4">
+        {{ error }}
+      </p>
     </div>
   </div>
 </template>
 
 <style scoped>
 body {
-  background-color: #121212; 
+  background-color: #121212;
 }
 
 input {
-  background-color: #2c2c2c; 
-  color: white; 
+  background-color: #2c2c2c;
+  color: white;
 }
 
 input::placeholder {
-  color: #aaa; 
+  color: #aaa;
 }
 </style>
-
 
 <script>
 import axios from "axios";
 import { Icon } from "@iconify/vue/dist/iconify.js";
+import VueCookies from "vue-cookies";
 export default {
   name: "LoginForm",
   components: { Icon },
@@ -114,15 +135,18 @@ export default {
       }
       try {
         const response = await axios.get(
-          `/authentication/token/new`,
+          `https://api.themoviedb.org/3/authentication/token/new?api_key=${
+            import.meta.env.VITE_APP_TMDB_API_KEY
+          }`
         );
-        console.log("responses", response);
+
+        console.log("tokeeeen ", response);
 
         const requestToken = response.data.request_token;
-        this.$cookies.set("requestToken", requestToken);
+        localStorage.set("requestToken", requestToken);
         // // Step 2: Redirect user to authorize the request token
         window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/`;
-
+        console.log("we are redirecting");
       } catch (error) {
         this.errorMessage =
           "An error occurred while creating the request token.";
@@ -173,8 +197,8 @@ export default {
     },
   },
   mounted() {
-    console.log('mountedd');
-    
+    console.log("mountedd");
+
     const urlParams = new URLSearchParams(window.location.search);
     const approved = urlParams.get("approved");
 
@@ -189,5 +213,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

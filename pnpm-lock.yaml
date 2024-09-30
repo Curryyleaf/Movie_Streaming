@@ -32,6 +32,9 @@ dependencies:
   axios:
     specifier: ^1.7.7
     version: 1.7.7
+  movieproject:
+    specifier: 'link:'
+    version: 'link:'
   pinia:
     specifier: ^2.2.2
     version: 2.2.2(vue@3.5.5)

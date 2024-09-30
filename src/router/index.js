@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 // import Home from "../views/Home.vue";
-import Login from "../views/Login.vue";
+import Login from "../views/TheLogin.vue";
 import Home from "../views/LandingPage.vue";
 import Cookies from "vue-cookies"; 
-import CelebSingleProfile from "../views/CelebSingleProfile.vue";
+import CelebSingleProfile from "../views/CelebProfilesSingle.vue";
 import MovieDetail from "../views/MovieDetails.vue";
 import WatchList from "../views/WatchList.vue";
 
@@ -13,14 +13,12 @@ const routes = [
     name: "Home",
     component: Home,
     meta: { requiresAuth: true },
-
   },
   {
     path: "/watchList",
     name: "WatchList",
     component: WatchList,
     meta: { requiresAuth: true },
-
   },
 
   {
@@ -39,6 +37,7 @@ const routes = [
     path: "/celebSingle",
     name: "CelebSingleProfile",
     component: CelebSingleProfile,
+    meta: { requiresAuth: true },
   },
 ];
 
