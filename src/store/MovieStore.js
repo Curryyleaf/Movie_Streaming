@@ -1,4 +1,3 @@
-// /src/stores/moviesStore.js
 import { defineStore } from "pinia";
 import api from "../Service/api";
 

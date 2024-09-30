@@ -1,5 +1,5 @@
 <template>
-<section  class=" w h-full  box-border m-0 p-0">
+<section  class=" box-border m-0 p-0">
    <Navbar v-if="!hideNavbar && !showMenu" @openModal="handleModal" ></Navbar>
    <Menu v-if="showMenu" @closeModal="handleModal"  ></Menu>
     <router-view></router-view>

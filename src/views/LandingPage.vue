@@ -1,8 +1,8 @@
 <template>
-  <section class=" bg-black h-auto overflow-clip w-full  m-0 p-0  box-border">
+  <section class=" bg-black h w-full  m-0 p-0  box-border">
     <header class=" box-border w-full mx-0 px-0">
    </header >
-   <main class="w-full box-border h-auto  pl-4 pr-2 p-0">
+   <main class="w-full box-border   pl-4 pr-2 p-0">
        <Hero></Hero>
      <CelebList></CelebList>
 

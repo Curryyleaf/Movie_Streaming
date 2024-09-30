@@ -1,15 +1,14 @@
-// /src/services/api.js
-import axios from "axios"; // Ensure this is declared only once
+import axios from "axios"; 
 
 const api = axios.create({
-  baseURL: "https://api.themoviedb.org/3", // Your API base URL
+  baseURL: "https://api.themoviedb.org/3", 
   headers: {
     accept: "application/json",
-    Authorization: import.meta.env.VITE_API_ACCESS_TOKEN, // Your API token
+    Authorization: import.meta.env.VITE_API_ACCESS_TOKEN, 
   },
 });
 
-export default api; // Export the instance for use in other modules
+export default api;
 
 // interceptor is axios inistance object
 // requesti is two of the type of interceptor

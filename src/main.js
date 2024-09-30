@@ -18,7 +18,6 @@ import "./style.css";
 
 const app = createApp(App);
 const pinia = createPinia()
-// Add icons to the library
 library.add(
   faBars,
   faCaretDown,
@@ -28,10 +27,9 @@ library.add(
   faCirclePlay ,
   faPlus
 );
-// Use the router
 app.use(router);
 app.use(pinia)
 app.use(VueCookies)
 app.component("font-awesome-icon", FontAwesomeIcon);
-// Mount the app
+
 app.mount("#app");
