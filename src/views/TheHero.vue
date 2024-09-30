@@ -3,11 +3,11 @@
     <main class="overflow-clip flex w-full">
       <div class="w-[75%]">
         <div v-for="(image, index) in imageArray">
-          <div class="h-full w-full relative bg-black overflow-hidden">
+          <div class="h-full w-full relative text-white bg-black overflow-hidden">
             <div
-              class="flex items-center absolute h-full top-0 bottom-0 left-0 right-0 justify-center text-white z-10"
+              class="flex items-center h-full justify-center text-white z-30"
             >
-              <div class="absolute flex-col bottom-0 pl-9 w-full">
+              <div class="absolute flex-col bottom-0 pl-9 w-full z-30">
                 <div
                   class="relative box-border flex bottom-0 w-1/5 left-5"
                   @click="navigateToDetail(image.id)"
@@ -57,6 +57,8 @@
                   </div>
                 </div>
               </div>
+
+              
             </div>
 
             <!--  poster image section  -->
@@ -65,7 +67,7 @@
                 :src="`https://image.tmdb.org/t/p/original${image.backdrop_path}`"
                 alt="Hero Background"
                 @click="navigateToDetail(image.id)"
-                class="w-full h-full object-center hover:cursor-pointer object-cover mySlides fade"
+                class=" object-center hover:cursor-pointer object-cover mySlides fade"
                 :style="{ display: currentIndex === index ? 'block' : 'none' }"
               />
               <span
