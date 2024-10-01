@@ -7,7 +7,7 @@ import Home from "../views/TheHome.vue";
 import Cookies from "vue-cookies"; 
 import CelebSingleProfile from "../views/HeroCelebCarosoulSingle.vue";
 import MovieDetail from "../views/HeroMovieDetail.vue";
-import WatchList from "../views/WatchList.vue";
+import WatchList from "../views/TheWatchList.vue";
 
 const routes = [
   {
