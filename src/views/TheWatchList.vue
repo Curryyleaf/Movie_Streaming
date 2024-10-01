@@ -15,7 +15,7 @@
         class="bg-gray-900 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-200"
       >
         <img
-          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          :src="`${imageUrl}/t/p/w500/${movie.poster_path}`"
           alt="Movie Poster"
           class="w-full h-64 object-cover"
         />
@@ -41,7 +41,7 @@
         class="bg-gray-900 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-200"
       >
         <img
-          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          :src="`${imageUrl}/t/p/${movie.poster_path}}`"
           alt="Movie Poster"
           class="w-full h-64 object-cover"
         />
@@ -71,6 +71,12 @@ export default {
       watchlist: [],
     };
   },
+  computed:{
+  imageUrl(){
+   const store=useMoviesStore()
+   return store.apiImageUrl
+ }
+  } ,
   methods: {
     async searchMovies() {
       if (!this.query) return;

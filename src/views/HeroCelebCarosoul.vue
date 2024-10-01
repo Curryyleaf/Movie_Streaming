@@ -67,9 +67,10 @@ export default {
       loading: (store) => store.loading,
     }),
 
-    imageUrl() {
-      return import.meta.env.VITE_API_IMAGE_URL;
-    },
+     imageUrl(){
+   const store=useMoviesStore()
+   return store.apiImageUrl
+ } ,
   },
   methods: {
     ...mapActions(useMoviesStore, ["fetchPopularCeleb"]),
@@ -110,11 +111,14 @@ export default {
       this.$refs.innerWrapper.addEventListener("transitionend", listener);
     },
 
-    async navigateToProfile(id) {
-      const store = useMoviesStore();
-      store.popularCelebId = id;
-      await this.$router.push({ name: "CelebSingleProfile" });
-    },
+async navigateToProfile(id) {
+  const store = useMoviesStore();
+  store.popularCelebId = id; 
+  this.$router.push({ name: "CelebSingleProfile" }); 
+ await nextTick()
+ await  window.scrollTo(0, 0); 
+},
+
 
     resetTranslate() {
       this.carouselStyles = {

@@ -1,36 +1,33 @@
 <template>
-<section  class="box-border  overflow-clip m-0 p-0">
-   <Navbar v-if="!hideNavbar && !showMenu" @openModal="handleModal" ></Navbar>
-   <Menu v-if="showMenu" @closeModal="handleModal"  ></Menu>
-    <router-view v-if="!showMenu" ></router-view>
-
+  <section class="box-border m-0 p-0">
+    <Navbar v-if="!hideNavbar && !showMenu" @openModal="handleModal"></Navbar>
+    <Menu v-if="showMenu" @closeModal="handleModal"></Menu>
+    <router-view v-if="!showMenu"></router-view>
   </section>
 </template>
 
 <script>
-
 import Menu from "./views/TheMenu.vue";
 import Navbar from "./views/TheNavbar.vue";
 
 export default {
-  components: {   Navbar , Menu},
-  data() { 
+  components: { Navbar, Menu },
+  data() {
     return {
-      showMenu:false
+      showMenu: false,
     };
   },
-  computed:{
-   hideNavbar(){
-      return this.$route.meta.hideNavbar
-   }
-  } ,
-  methods:{
-   handleModal(){
-      console.log('model use');
-      
-      this.showMenu=!this.showMenu
-   }
-  }
+  computed: {
+    hideNavbar() {
+      return this.$route.meta.hideNavbar;
+    },
+  },
+  methods: {
+    handleModal() {
+      console.log("model use");
+      this.showMenu = !this.showMenu;
+    },
+  },
 };
 </script>
 

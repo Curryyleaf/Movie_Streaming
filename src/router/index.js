@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 // import Home from "../views/Home.vue";
+import { nextTick } from "vue"; 
+
 import Login from "../views/TheLogin.vue";
 import Home from "../views/TheHome.vue";
 import Cookies from "vue-cookies"; 
 import CelebSingleProfile from "../views/HeroCelebCarosoulSingle.vue";
-import MovieDetail from "../views/MovieDetails.vue";
+import MovieDetail from "../views/HeroMovieDetail.vue";
 import WatchList from "../views/WatchList.vue";
 
 const routes = [
@@ -44,6 +46,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+      console.log("scrollBehavior is happening before router");
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
 });
 router.beforeEach((to, from, next) => {
   const isAuthenticated = Cookies.get("requestToken");
@@ -56,6 +66,15 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+})
+
+
+router.afterEach(() => {
+  console.log('scrollBehavior is happening before router');
+  
+  nextTick(() => {
+    window.scrollTo(0, 0); 
+  }  ,100);
 });
 
 export default router;

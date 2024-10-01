@@ -9,14 +9,26 @@ export const useMoviesStore = defineStore("movies", {
     loading: false,
     sessionId: "",
     popularCelebId: "",
+    movieDetails:[] ,
     popularCelebSingleData: [],
     popularCelebSoloImage: [],
+    apiImageUrl: import.meta.env.VITE_API_IMAGE_URL,
   }),
   // getters: {
   //   allMovies: (state) => state.movies,
   //   hasMovies: (state) => state.movies.length > 0,
   // },
   actions: {
+    async fetchMovieDetails() {
+      const movieId = this.$route.params.id;
+      try {
+        const response = await api.get(`/movie/${movieId}`, {});
+        this.movieDetails = response.data;
+        console.log("movie details ", response);
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      }
+    },
     async fetchMovies() {
       this.loading = true;
       try {
@@ -29,15 +41,27 @@ export const useMoviesStore = defineStore("movies", {
         this.loading = false;
       }
     },
-async fetchPopularCeleb() {
-  try {
-    const response = await api.get("/person/popular");
-    console.log("Full Response:", response); 
-    this.popularCeleb = response.data.results;
-  } catch (error) {
-    console.log("Failed to fetch popular celebrities:", error);
-  }
-},
+    async fetchPopularCeleb() {
+      try {
+        const response = await api.get("/person/popular");
+        console.log("Full Response:", response);
+        const blockedCelebs = [
+          "Sae Bom",
+          "Min Do-yoon",
+          "Dyessa Garcia",
+          "Yoo Jung",
+          "Angelica Hart",
+        ];
+
+        this.popularCeleb = response.data.results.filter(
+          (person) => !blockedCelebs.includes(person.name)
+        );
+
+        console.log("Filtered Celebrities:", this.popularCeleb);
+      } catch (error) {
+        console.log("Failed to fetch popular celebrities:", error);
+      }
+    },
 
     // selectCelebSingleProfile(id) {
     //   console.log("Selecting ID:", id); // Log the incoming ID
@@ -66,10 +90,7 @@ async fetchPopularCeleb() {
     // },
     async fetchPopularCelebSoloImage() {
       try {
-        const response = await api.get(
-          `/person/${this.popularCelebId}/images`
-        );
-    
+        const response = await api.get(`/person/${this.popularCelebId}/images`);
 
         this.popularCelebSoloImage = response.data.profiles;
       } catch (error) {

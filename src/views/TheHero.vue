@@ -14,7 +14,7 @@
                 >
                   <!-- left overlay image -->
                   <img
-                    :src="`https://image.tmdb.org/t/p/original${image.poster_path}`"
+                    :src="`${imageUrl}/t/p/original${image.poster_path}`"
                     alt="poster"
                     class="object-center object-contain hover:cursor-pointer mySlides fade"
                     :style="{
@@ -64,7 +64,7 @@
             <!--  poster image section  -->
             <div class="min-h-fit">
               <img
-                :src="`https://image.tmdb.org/t/p/original${image.backdrop_path}`"
+                :src="`${imageUrl}/t/p/original${image.backdrop_path}`"
                 alt="Hero Background"
                 @click="navigateToDetail(image.id)"
                 class=" object-center hover:cursor-pointer object-cover mySlides fade"
@@ -126,7 +126,7 @@
               @click="navigateToDetail(image.id)"
             >
               <img
-                :src="`https://image.tmdb.org/t/p/original${image.backdrop_path}`"
+                :src="`${imageUrl}/t/p/original${image.backdrop_path}`"
                 alt="Thumbnail"
                 :class="[
                   'w-20 h-28 fade  object-center cursor-pointer object-cover ',
@@ -185,7 +185,7 @@ export default {
     preloadImages(imageSrcArray) {
       imageSrcArray.forEach((src) => {
         const image = new Image();
-        image.src = `https://image.tmdb.org/t/p/original${src}`;
+        image.src = `Imagec}`;
         console.log(`Preloading image: ${src}`);
       });
     },
@@ -218,6 +218,10 @@ export default {
   },
 
   computed: {
+     imageUrl(){
+   const store=useMoviesStore()
+   return store.apiImageUrl
+ } ,
     upNextImages() {
       let upNextImages = [];
       const remainingImages = this.imageArray.length - this.currentIndex - 1;
