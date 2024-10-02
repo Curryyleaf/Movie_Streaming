@@ -8,12 +8,34 @@ import Cookies from "vue-cookies";
 import CelebSingleProfile from "../views/HeroCelebCarosoulSingle.vue";
 import MovieDetail from "../views/HeroMovieDetail.vue";
 import WatchList from "../views/TheWatchList.vue";
+import MenuTopMovies from "../views/Menu/MenuTopMovies.vue";
+import MenuMostPopularMovies from "../views/Menu/MenuMostPopularMovies.vue";
+import { movie } from './../data/MenuData';
+import MenuMovieList from "../views/Menu/MenuMovieList.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/Top250Movies",
+    name: "Top250Movies",
+    component: MenuTopMovies,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/mostPopularMovies",
+    name: "MostPopularMovies",
+    component: MenuMostPopularMovies,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/movie/:apiEnd",
+    name: "MenuMovieList",
+    component: MenuMovieList,
     meta: { requiresAuth: true },
   },
   {

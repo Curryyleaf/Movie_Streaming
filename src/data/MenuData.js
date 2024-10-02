@@ -1,18 +1,33 @@
 
-    export const   movie= [
-        { anchorText: "Now Playing", routeName: "NowPlaying" },
-        { anchorText: "Popular Movies", routeName: "PopularMovies" },
-        { anchorText: "Top Rated Movies", routeName: "TopRatedMovies" },
-        { anchorText: "Upcoming Movies", routeName: "UpcomingMovies" },
-        { anchorText: "Action Movies", routeName: "ActionMovies" },
-        { anchorText: "Comedy Movies", routeName: "ComedyMovies" },
-        { anchorText: "Drama Movies", routeName: "DramaMovies" },
-        { anchorText: "Horror Movies", routeName: "HorrorMovies" },
-        { anchorText: "Romance Movies", routeName: "RomanceMovies" },
-        { anchorText: "Science Fiction Movies", routeName: "SciFiMovies" },
-        { anchorText: "Top 100 Movies", routeName: "Top100Movies" },
-        { anchorText: "Award Winning Movies", routeName: "AwardWinningMovies" },
-      ]
+    export const movie = [
+      {
+        anchorText: "Now Playing",
+        routeName: "NowPlaying",
+        apiEnd: "now_playing",
+      },
+      {
+        anchorText: "Popular Movies",
+        routeName: "MostPopularMovies",
+        apiEnd: "popular",
+      },
+      {
+        anchorText: "Top 250 Movies",
+        routeName: "Top250Movies",
+        apiEnd: "top_rated",
+      },
+      {
+        anchorText: "Upcoming Movies",
+        routeName: "UpcomingMovies",
+        apiEnd: "upcoming",
+      },
+      { anchorText: "Action Movies", routeName: "ActionMovies" },
+      { anchorText: "Comedy Movies", routeName: "ComedyMovies" },
+      { anchorText: "Drama Movies", routeName: "DramaMovies" },
+      { anchorText: "Horror Movies", routeName: "HorrorMovies" },
+      { anchorText: "Romance Movies", routeName: "RomanceMovies" },
+      { anchorText: "Science Fiction Movies", routeName: "SciFiMovies" },
+      { anchorText: "Award Winning Movies", routeName: "AwardWinningMovies" },
+    ];
        export const  tv= [
         { anchorText: "Current TV Shows", routeName: "CurrentTVShows" },
         { anchorText: "Popular TV Shows", routeName: "PopularTVShows" },

@@ -16,19 +16,19 @@
                   <img
                     :src="`${imageUrl}/t/p/original${image.poster_path}`"
                     alt="poster"
-                    class="object-center object-contain hover:cursor-pointer mySlides fade"
+                    class="object-center object-contain hover:cursor-pointer "
                     :style="{
                       display: currentIndex === index ? 'block' : 'none',
                     }"
                   />
                   <font-awesome-icon
                     :icon="['fas', 'plus']"
-                    class="absolute text-lg top-[5%] text-white left-[4%]"
+                    class="absolute text-lg top-[4%] text-white left-[4%]"
                   />
                   <font-awesome-icon
                     :icon="['far', 'bookmark']"
                     size="3x"
-                    class="top-0 left-0 text-white absolute opacity-50"
+                    class="top-0 left-0 text-white absolute opacity-90"
                   />
                 </div>
 
@@ -153,12 +153,12 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import api from "../Service/api.js";
-import { useMoviesStore } from "../store/MovieStore.js";
+import { useAppStore } from "../store/AppStore.js";
 export default {
   components: { FontAwesomeIcon, Icon },
 
   data() {
-    const store = useMoviesStore();
+    const store = useAppStore();
     return {
       store,
       faChevronLeft,
@@ -185,7 +185,7 @@ export default {
     preloadImages(imageSrcArray) {
       imageSrcArray.forEach((src) => {
         const image = new Image();
-        image.src = `Imagec}`;
+        image.src = `https://image.tmdb.org/t/p/original${src}`
         console.log(`Preloading image: ${src}`);
       });
     },
@@ -219,7 +219,7 @@ export default {
 
   computed: {
      imageUrl(){
-   const store=useMoviesStore()
+   const store=useAppStore()
    return store.apiImageUrl
  } ,
     upNextImages() {

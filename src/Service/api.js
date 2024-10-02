@@ -18,7 +18,7 @@ export default api;
 // Interceptor to dynamically set the token for each request
 // api.interceptors.request.use(
 //   (config) => {
-//     const authStore = useMoviesStore();
+//     const authStore = useAppStore();
 
 //     // Use a dynamic token if available, otherwise fall back to default token
 //     if (config.headers["Custom-Token"]) {

@@ -29,7 +29,7 @@
         <div
           v-for="celeb in cards"
           :key="celeb.id"
-          class="flex-shrink-0 flex flex-col items-center  hover:cursor-pointer"
+          class="flex-shrink-0 flex flex-col items-center hover:cursor-pointer"
         >
           <img
             @click="navigateToProfile(celeb.id)"
@@ -45,7 +45,7 @@
 </template>
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import { useMoviesStore } from "../store/MovieStore";
+import { useAppStore } from "../store/AppStore";
 import { nextTick } from "vue";
 import { mapState, mapActions } from "pinia";
 
@@ -62,18 +62,18 @@ export default {
     Icon,
   },
   computed: {
-    ...mapState(useMoviesStore, {
+    ...mapState(useAppStore, {
       popularCeleb: (store) => store.popularCeleb,
       loading: (store) => store.loading,
     }),
 
-     imageUrl(){
-   const store=useMoviesStore()
-   return store.apiImageUrl
- } ,
+    imageUrl() {
+      const store = useAppStore();
+      return store.apiImageUrl;
+    },
   },
   methods: {
-    ...mapActions(useMoviesStore, ["fetchPopularCeleb"]),
+    ...mapActions(useAppStore, ["fetchPopularCeleb"]),
 
     async profileSlider() {
       this.moveLeft();
@@ -111,14 +111,13 @@ export default {
       this.$refs.innerWrapper.addEventListener("transitionend", listener);
     },
 
-async navigateToProfile(id) {
-  const store = useMoviesStore();
-  store.popularCelebId = id; 
-  this.$router.push({ name: "CelebSingleProfile" }); 
- await nextTick()
- await  window.scrollTo(0, 0); 
-},
-
+    async navigateToProfile(id) {
+      const store = useAppStore();
+      store.popularCelebId = id;
+      this.$router.push({ name: "CelebSingleProfile" });
+      await nextTick();
+      await window.scrollTo(0, 0);
+    },
 
     resetTranslate() {
       this.carouselStyles = {

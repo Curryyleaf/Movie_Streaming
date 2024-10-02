@@ -73,7 +73,7 @@ export default {
   },
   computed:{
   imageUrl(){
-   const store=useMoviesStore()
+   const store=useAppStore()
    return store.apiImageUrl
  }
   } ,

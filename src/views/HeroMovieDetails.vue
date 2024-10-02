@@ -11,7 +11,7 @@
       <div class="max-w-4xl w-full">
         <div class="flex flex-col md:flex-row mb-8" v-if="movieDetails">
           <img
-            :src="`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`"
+            :src="`${imageUrl}/t/p/w500${movieDetails.poster_path}`"
             alt="Movie Poster"
             class="w-full md:w-1/3 rounded-lg mb-4 md:mb-0"
           />
@@ -73,6 +73,7 @@ export default {
     };
   },
   computed: {
+    
     formattedReleaseDate() {
       const options = { year: "numeric", month: "long", day: "numeric" };
       return new Date(this.movieDetails.release_date).toLocaleDateString(
@@ -81,7 +82,7 @@ export default {
       );
     },
     backgroundImageStyle() {
-      const imageUrl = `https://image.tmdb.org/t/p/original${this.movieDetails.backdrop_path}`;
+      const imageUrl = `Image/t/p/original${this.movieDetails.backdrop_path}`;
       return {
         backgroundImage: `url(${imageUrl})`,
       };

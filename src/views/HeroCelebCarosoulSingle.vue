@@ -162,7 +162,7 @@
 
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import { useMoviesStore } from "../store/MovieStore";
+import { useAppStore } from "../store/AppStore";
 import { nextTick } from "vue";
 
 export default {
@@ -175,11 +175,11 @@ export default {
   methods: {},
   computed: {
     imageUrl() {
-      const store = useMoviesStore();
+      const store = useAppStore();
       return store.apiImageUrl;
     },
     profileImages() {
-      const store = useMoviesStore();
+      const store = useAppStore();
       let images = store.popularCelebSoloImage;
       if (images.length > 10) {
         images = store.popularCelebSoloImage.slice(0, 9);
@@ -190,11 +190,11 @@ export default {
     },
 
     profileData() {
-      const store = useMoviesStore();
+      const store = useAppStore();
       return store.popularCelebSingleData;
     },
     assignData() {
-      const store = useMoviesStore();
+      const store = useAppStore();
       this.profileData = store.popularCelebSingleData;
     },
   },
@@ -203,7 +203,7 @@ nextTick()
   },
   watch: {},
 async  created() {
-    const store = useMoviesStore();
+    const store = useAppStore();
     await store.fetchPopularCeleb();
    store.assignPopularCelebData();
     console.log("storesngle data", store.popularCelebSingleData);

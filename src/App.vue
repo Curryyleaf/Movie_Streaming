@@ -2,6 +2,7 @@
   <section class="box-border m-0 p-0">
     <Navbar v-if="!hideNavbar && !showMenu" @openModal="handleModal"></Navbar>
     <Menu v-if="showMenu" @closeModal="handleModal"></Menu>
+    <h1 class=""></h1>
     <router-view v-if="!showMenu"></router-view>
   </section>
 </template>

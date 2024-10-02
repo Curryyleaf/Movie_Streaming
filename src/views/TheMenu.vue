@@ -7,7 +7,7 @@
       :key="category.title"
       :menuItems="category.items"
       :title="category.title"
-      
+      @anchor-clicked="handleAnchorClick"
     >
       <template v-slot:icon>
         <Icon :icon="category.icon" width="48" height="48" />
@@ -27,6 +27,7 @@
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import Sidebar from "../components/AppSideModal.vue";
 import { awards, celeb, community, movie, review, tv } from "../data/MenuData";
+import { useListStore } from "../store/liststore";
 
 export default {
   components: { Sidebar, Icon },
@@ -78,6 +79,17 @@ export default {
     },
   },
   methods: {
+    handleAnchorClick(payload){
+      const store= useListStore()
+      const apiEnd=payload.apiEnd
+      const routingName=payload.routeName
+       this.$router.push({name:'MenuMovieList', params:{
+        apiEnd:apiEnd
+       }})
+       console.log('apiend' , payload.apiEnd);
+       console.log('routeNAme' , payload.routeName);
+       
+    } ,
     closeSidebars() {
       this.$emit("closeModal");
     },

@@ -1,15 +1,16 @@
 import { defineStore } from "pinia";
 import api from "../Service/api";
 
-export const useMoviesStore = defineStore("movies", {
+export const useAppStore = defineStore("movies", {
   state: () => ({
     movies: [],
+    showMenu: false,
     popularCeleb: [],
     selectedMovie: null,
     loading: false,
     sessionId: "",
     popularCelebId: "",
-    movieDetails:[] ,
+    movieDetails: [],
     popularCelebSingleData: [],
     popularCelebSoloImage: [],
     apiImageUrl: import.meta.env.VITE_API_IMAGE_URL,

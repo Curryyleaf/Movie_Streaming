@@ -62,7 +62,7 @@
 
 <script>
 import api from '../Service/api';
-import { useMoviesStore } from '../store/MovieStore';
+import { useAppStore } from '../store/MovieStore';
 
 export default {
   data() {
@@ -74,7 +74,7 @@ export default {
   },
   computed:{
  imageUrl(){
-   const store=useMoviesStore()
+   const store=useAppStore()
    return store.apiImageUrl
  }
   } ,

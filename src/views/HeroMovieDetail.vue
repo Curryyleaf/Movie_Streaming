@@ -59,7 +59,7 @@
 
 <script>
 import api from "../Service/api";
-import { useMoviesStore } from "../store/MovieStore";
+import { useAppStore } from "../store/AppStore";
 
 export default {
   props: {
@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     imageUrl() {
-      const store = useMoviesStore();
+      const store = useAppStore();
       return store.apiImageUrl;
     },
     formattedReleaseDate() {

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { useMoviesStore } from '../store/MovieStore.js';
+import { useAppStore } from '../store/AppStore.js';
 import Hero from '../views/TheHero.vue';
 import CelebList from './HeroCelebCarosoul.vue';
 
@@ -25,7 +25,7 @@ export default {
   name: 'App',
   methods:{
   async  fetch(){
-  const store=useMoviesStore()
+  const store=useAppStore()
     await store.fetchMovies()
     } ,
   } ,
