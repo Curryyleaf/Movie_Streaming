@@ -2,8 +2,8 @@
   <section>
     <AppList
       @btnClicked="handleButtonCLick"
-      :list="listStore.moviesList"
-      :title="title"
+      :list="listStore.movies"
+      :title="listStore.title"
       :moreItems="moreItem"
     ></AppList>
   </section>
@@ -17,7 +17,6 @@ export default {
   components: { AppList },
   data() {
     return {
-      title: "Most Popular Movies",
       moreItem:movie
     };
   },
@@ -33,6 +32,8 @@ export default {
     const apiEnd=this.$route.params.apiEnd
     this.listStore.currentApiEnd=apiEnd
     this.listStore.fetchMovieList(apiEnd);
+    console.log('helllo check chck' , this.$route.params.apiEnd);
+    
   },
 };
 </script>

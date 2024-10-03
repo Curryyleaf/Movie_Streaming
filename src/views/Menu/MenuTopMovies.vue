@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     handleButtonCLick() {
-      this.listStore.loadMoreTopRated();
+      this.listStore.loadMore();
     },
   },
   created() {

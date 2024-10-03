@@ -2,22 +2,18 @@
     export const movie = [
       {
         anchorText: "Now Playing",
-        routeName: "NowPlaying",
         apiEnd: "now_playing",
       },
       {
         anchorText: "Popular Movies",
-        routeName: "MostPopularMovies",
         apiEnd: "popular",
       },
       {
         anchorText: "Top 250 Movies",
-        routeName: "Top250Movies",
         apiEnd: "top_rated",
       },
       {
-        anchorText: "Upcoming Movies",
-        routeName: "UpcomingMovies",
+        anchorText: "Up coming Movies",
         apiEnd: "upcoming",
       },
       { anchorText: "Action Movies", routeName: "ActionMovies" },

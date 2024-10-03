@@ -13,7 +13,7 @@
           :key="index"
           class="hover:bg-gray-700 rounded"
         >
-          <a @click="navigate(item.apiEnd , item.routeName)" class="block py-2 text-left text-wrap whitespace-pre-wrap max-w-48 cursor-pointer">
+          <a @click="navigate(item.apiEnd , item.anchorText)" class="block py-2 text-left text-wrap whitespace-pre-wrap max-w-48 cursor-pointer">
             {{ item.anchorText }}
           </a>
         </li>
@@ -39,8 +39,8 @@ export default {
     }
   },
   methods: {
-    navigate(apiEnd , routeName) {
-   this.$emit('anchorClicked' ,{apiEnd , routeName} )
+    navigate(apiEnd , title) {
+   this.$emit('anchorClicked' ,{apiEnd , title} )
     },
   },
 };

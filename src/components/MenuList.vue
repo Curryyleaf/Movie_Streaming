@@ -71,6 +71,7 @@
             <div class="ml-2">
               <h3 class="font-semibold">{{ movie.title }}</h3>
               <p class="text-sm">{{ movie.year }}</p>
+             
             </div>
           </div>
         </div>

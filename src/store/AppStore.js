@@ -8,18 +8,34 @@ export const useAppStore = defineStore("movies", {
     popularCeleb: [],
     selectedMovie: null,
     loading: false,
+    query: "",
+    searchedResults:'' , 
     sessionId: "",
     popularCelebId: "",
     movieDetails: [],
     popularCelebSingleData: [],
     popularCelebSoloImage: [],
     apiImageUrl: import.meta.env.VITE_API_IMAGE_URL,
+    
   }),
   // getters: {
   //   allMovies: (state) => state.movies,
   //   hasMovies: (state) => state.movies.length > 0,
   // },
   actions: {
+    async fetchSearch() {
+      try {
+        const response = await api.get("/search/multi", {
+          query: this.query,
+        });
+        this.searchedResults= response.data.results
+        console.log('checking the searced api' , response);
+        
+      } catch (error) {}
+    },
+    assignQuery(searchQuery) {
+      this.query = searchQuery;
+    },
     async fetchMovieDetails() {
       const movieId = this.$route.params.id;
       try {
@@ -79,7 +95,8 @@ export const useAppStore = defineStore("movies", {
     //         headers: {
     //           accept: "application/json",
     //           Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
-    //         },
+    //         },import api from './../Service/api';
+
     //       }
     //     );
     //     this.popularCelebSingleData = response.data;

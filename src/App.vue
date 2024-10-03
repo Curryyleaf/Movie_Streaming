@@ -8,17 +8,20 @@
 </template>
 
 <script>
+import { mapState } from "pinia";
 import Menu from "./views/TheMenu.vue";
 import Navbar from "./views/TheNavbar.vue";
+import { useListStore } from "./store/liststore";
 
 export default {
   components: { Navbar, Menu },
   data() {
     return {
-      showMenu: false,
+      
     };
   },
   computed: {
+   ...mapState(useListStore , ['showMenu']),
     hideNavbar() {
       return this.$route.meta.hideNavbar;
     },
@@ -26,7 +29,8 @@ export default {
   methods: {
     handleModal() {
       console.log("model use");
-      this.showMenu = !this.showMenu;
+     const store =useListStore()
+     store.toggleMenu()
     },
   },
 };

@@ -1,5 +1,7 @@
 <template>
-  <section class="w-full bg-black flex h-full text-white gap-5 box-border z-50 p-12">
+  <section
+    class="w-full bg-black flex h-full text-white gap-5 box-border z-50 p-12"
+  >
     <!-- Dynamically render Sidebar components -->
 
     <Sidebar
@@ -28,6 +30,7 @@ import { Icon } from "@iconify/vue/dist/iconify.js";
 import Sidebar from "../components/AppSideModal.vue";
 import { awards, celeb, community, movie, review, tv } from "../data/MenuData";
 import { useListStore } from "../store/liststore";
+
 
 export default {
   components: { Sidebar, Icon },
@@ -79,17 +82,17 @@ export default {
     },
   },
   methods: {
-    handleAnchorClick(payload){
-      const store= useListStore()
-      const apiEnd=payload.apiEnd
-      const routingName=payload.routeName
-       this.$router.push({name:'MenuMovieList', params:{
-        apiEnd:apiEnd
-       }})
-       console.log('apiend' , payload.apiEnd);
-       console.log('routeNAme' , payload.routeName);
-       
-    } ,
+    handleAnchorClick(payload) {
+      const store = useListStore();
+      store.title = payload.title;
+      const apiEnd = payload.apiEnd;
+      this.$router.push({
+        name: "MenuMovieList",
+        params: {
+          apiEnd: apiEnd,
+        },
+      });
+    },
     closeSidebars() {
       this.$emit("closeModal");
     },

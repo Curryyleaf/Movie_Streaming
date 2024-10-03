@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="w-full box-border sticky top-0 z-50 text-white bg-black-200 overflow-x-hidden flex gap-4 px-4 py-3 items-center"
+    class="w-full box-border sticky top-0 z-50 text-white bg-black-300 overflow-x-hidden flex gap-4 px-4 py-3 items-center"
   >
     <a href="" class="px-6 hover:cursor-pointer" @click="navigateToHome">
       <Icon
@@ -16,7 +16,7 @@
         class="text-lg text-center pr-2"
         @click="openCategories"
       />
-      <span class=" text-lg">Menu</span>
+      <span class="text-lg">Menu</span>
     </label>
 
     <!-- input search section -->
@@ -28,9 +28,11 @@
         <Icon icon="flowbite:caret-down-solid" class="text-black" />
       </div>
       <input
+        v-model="query"
+        @input="search"
         type="text"
         placeholder="search movies"
-        class="w-auto flex flex-grow  bg-white py-1 pl-2 flex-1 h-full border-l border-double border-black"
+        class="w-auto flex flex-grow bg-white py-1 pl-2 flex-1 h-full border-l border-double border-black"
       />
       <button
         class="box-border bg-white flex mr-2 rounded-lg h-full items-center justify-center w-6"
@@ -46,8 +48,13 @@
 
     <!-- sign in section -->
     <div class="flex gap-6">
-      <h1 class="font-semibold pr-4 border-r-2 border-gray-500 border-solid">MoviePro</h1>
-      <div class="flex hover:cursor-pointer hover:text-gray-400 items-center" @click="navigateToWatchList">
+      <h1 class="font-semibold pr-4 border-r-2 border-gray-500 border-solid">
+        MoviePro
+      </h1>
+      <div
+        class="flex hover:cursor-pointer hover:text-gray-400 items-center"
+        @click="navigateToWatchList"
+      >
         <font-awesome-icon :icon="['far', 'bookmark']" class="pr-2" />
         <p>Watch List</p>
       </div>
@@ -65,35 +72,52 @@
 <script>
 import Sidebar from "../components/AppSideModal.vue";
 import { Icon } from "@iconify/vue/dist/iconify.js";
+import { mapState } from "pinia";
+import { useAppStore } from "../store/AppStore";
+import { useListStore } from "../store/liststore";
 export default {
   components: {
     Sidebar,
     Icon,
   },
   data() {
-    return {};
+    return {
+      query: "",
+    };
   },
-  methods:{
-    navigateToWatchList(){
- this.$router.push({ name: "WatchList" });
-    } ,
-    navigateToHome(){
+  computed: {
+    ...mapState(useListStore, ["showMenu"]),
+    showMenu() {
+      return this.showMenu;
+    },
+    logout() {
+      this.$cookies.remove("requestToken");
+      this.$router.push({ name: "Login" });
+    },
+    canLogOut() {
+      this.$cookies.get("requestToken");
+    },
+  },
+  methods: {
+    onSearchInput() {
+      const store = useAppStore();
+      store.query = this.query;
+    },
+    navigateToWatchList() {
+      this.$router.push({ name: "WatchList" });
+    },
+    navigateToHome() {
       this.$router.push({ name: "Home" });
-    } ,
-    openCategories(){
-      this.$emit('openModal')
-    }
-  }, 
-  computed:{
-    logout(){
-      this.$cookies.remove('requestToken');
-      this.$router.push({name:'Login'})
+    },
+    openCategories() {
+      console.log("open modela is called");
 
-    } , 
-       canLogOut(){
-      this.$cookies.get('requestToken')
-    } ,
-
+      this.$emit("openModal");
+    },
+  },
+  created(){
+    const store = useAppStore()
+    store.fetchSearch()
   }
 };
 </script>
