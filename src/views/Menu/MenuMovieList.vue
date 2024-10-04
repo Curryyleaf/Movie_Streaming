@@ -2,6 +2,7 @@
   <section>
     <AppList
       @btnClicked="handleButtonCLick"
+      @imageClicked="handleImageClick"
       :list="listStore.movies"
       :title="listStore.title"
       :moreItems="moreItem"
@@ -24,6 +25,11 @@ export default {
     ...mapStores(useListStore),
   },
   methods: {
+    handleImageClick(id){
+     if (id) {
+        this.$router.push({ name: "MovieDetail", params: { id: id } });
+      }
+    } ,
     handleButtonCLick() {
       this.listStore.loadMore();
     },

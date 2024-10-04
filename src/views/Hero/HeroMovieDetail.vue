@@ -91,7 +91,7 @@ export default {
         backgroundImage: `url(${imageUrl})`,
       };
     },
-  },
+},
 
   methods: {
     async fetchMovieDetails() {

@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark  , faCirclePlay} from "@fortawesome/free-regular-svg-icons";
 import { createPinia } from "pinia";
+import VueLazyload from "vue-lazyload";
 import "./assets/tailwind.css";
 import "./style.css";
 
@@ -30,6 +31,7 @@ library.add(
 app.use(router);
 app.use(pinia)
 app.use(VueCookies)
+app.use(VueLazyload)
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");

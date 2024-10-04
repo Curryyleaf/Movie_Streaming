@@ -49,7 +49,7 @@ export const useListStore = defineStore("list", {
     loadMore() {
       if (this.currentPage < this.totalPages) {
         this.currentPage += 1;
-        this.fetchTopRatedMovies();
+        this.fetchMovieList();
       }
     },
     toggleMenu() {
