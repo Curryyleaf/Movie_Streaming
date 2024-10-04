@@ -51,12 +51,13 @@
           </NavCategoryDrop>
         </div>
       </div>
+
       <input
         v-model="query"
         @input="onSearchInput"
         type="text"
         placeholder="search movies"
-        class="w-auto flex flex-grow text-black bg-white py-1 pl-2 flex-1 h-full border-l border-double border-black"
+        class=" w-[90%] shrink-0  text-black bg-white py-1 pl-2  h-full "
       />
       <button
         @click="onSearchInput"
@@ -69,7 +70,7 @@
           class="text-gray-400"
         />
       </button>
-      <div v-if="query" class="absolute top-[15vh] w-full ">
+      <div v-if="canSearchOpen" class="relative w-full  ">
         <NavSearchModal
         :results="searchedResults"
         ></NavSearchModal>
@@ -135,6 +136,9 @@ export default {
     };
   },
   computed: {
+    canSearchOpen(){
+   return this.query
+    } ,
     ...mapState(useListStore, ["showMenu" , "searchedResults"]),
     showMenu() {
       return this.showMenu;
