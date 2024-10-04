@@ -5,9 +5,9 @@
         <div v-for="(image, index) in imageArray">
           <div class="h-full w-full relative text-white bg-black overflow-hidden">
             <div
-              class="flex items-center h-full justify-center text-white z-30"
+              class="flex items-center h-full justify-center text-white z-20"
             >
-              <div class="absolute flex-col bottom-0 pl-9 w-full z-30">
+              <div class="absolute flex-col bottom-0 pl-9 w-full z-20">
                 <div
                   class="relative box-border flex bottom-0 w-1/5 left-5"
                   @click="navigateToDetail(image.id)"
@@ -85,7 +85,7 @@
 
               <span
                
-                class="text-white px-2 py-6 hover:cursor-pointer z-50 opacity-40 absolute top-[20%] right-0 rounded"
+                class="text-white px-2 py-6 hover:cursor-pointer z-30 opacity-40 absolute top-[20%] right-0 rounded"
               >
                 <Icon
                  @click="navigateToNext"

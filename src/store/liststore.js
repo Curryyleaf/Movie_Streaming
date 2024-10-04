@@ -6,12 +6,29 @@ export const useListStore = defineStore("list", {
     movies: [],
     currentPage: 1,
     totalPages: 0,
-    title:'' ,
-    showMenu:false ,
-    currentApiEnd:''
+    title: "",
+    showMenu: false,
+    currentApiEnd: "",
+    query: "",
+    searchedResults: "",
+    searchCategory:'' ,
   }),
   getters: {},
   actions: {
+    async fetchSearch() {
+      api.get("/search/multi", {
+          params: {
+            query: this.query,
+          },
+        })
+        .then((response) => {
+          console.log("Full search response:", response);
+          this.searchedResults = response.data.results;
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    },
     async fetchMovieList(apiEnd) {
       try {
         const page = this.currentPage;
@@ -24,9 +41,6 @@ export const useListStore = defineStore("list", {
           this.movies.push(...response.data.results);
         }
         this.totalPages = response.data.total_pages;
-      console.log('another check check' , this.movies);
-      
-        
       } catch (error) {
         console.error("Error fetching top-rated movies", error);
       }
@@ -38,8 +52,8 @@ export const useListStore = defineStore("list", {
         this.fetchTopRatedMovies();
       }
     },
-    toggleMenu(){
-        this.showMenu=!this.showMenu
-    }
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
   },
 });

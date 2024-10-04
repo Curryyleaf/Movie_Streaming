@@ -28,9 +28,9 @@ export default {
   },
   methods: {
     handleModal() {
-      console.log("model use");
-     const store =useListStore()
-     store.toggleMenu()
+       const store =useListStore()
+       store.toggleMenu()
+       console.log("boolean in app" , store.showMenu );
     },
   },
 };

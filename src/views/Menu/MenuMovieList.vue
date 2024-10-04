@@ -10,7 +10,7 @@
 </template>
 <script>
 import { movie } from "../../data/MenuData";
-import AppList from "../../components/MenuList.vue";
+import AppList from "../../components/Menu/MenuListComponent.vue";
 import { useListStore } from "../../store/liststore";
 import { mapStores } from "pinia";
 export default {

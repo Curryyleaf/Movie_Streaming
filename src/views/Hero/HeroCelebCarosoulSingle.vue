@@ -162,7 +162,7 @@
 
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import { useAppStore } from "../store/AppStore";
+import { useAppStore } from "../../store/AppStore";
 import { nextTick } from "vue";
 
 export default {

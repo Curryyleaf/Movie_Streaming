@@ -18,7 +18,7 @@
 <script>
 import { useAppStore } from '../store/AppStore.js';
 import Hero from '../views/TheHero.vue';
-import CelebList from './HeroCelebCarosoul.vue';
+import CelebList from './Hero/HeroCelebCarosoul.vue';
 
 export default {
   components:{ Hero , CelebList} ,

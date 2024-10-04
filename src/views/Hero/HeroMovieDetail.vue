@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import api from "../Service/api";
-import { useAppStore } from "../store/AppStore";
+import api from "../../Service/api";
+import { useAppStore } from "../../store/AppStore";
 
 export default {
   props: {

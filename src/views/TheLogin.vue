@@ -92,63 +92,49 @@ input::placeholder {
 import axios from "axios";
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import VueCookies from "vue-cookies";
+import { usersCredential } from "../data/LoginData/UserCredentials";
 export default {
   name: "LoginForm",
   components: { Icon },
   data() {
     return {
+      loginAttempts: 0,
+      maxAttempts: 5,
+      loginAttempts:0,
       rememberMe: false,
+       lockoutTime: 300000 ,
       username: "",
       password: "",
       csrfToken: "",
       error: null,
+
     };
   },
   methods: {
     async handleLogin() {
-      //       const sanitizedUsername = this.sanitizeInput(this.username);
-      // const sanitizedPassword = this.sanitizeInput(this.password);
-      const usersCredential = [
-        {
-          username: import.meta.env.VITE_APP_USER1_USERNAME,
-          password: import.meta.env.VITE_APP_USER1_PASSWORD,
-        },
-        {
-          username: import.meta.env.VITE_APP_USER2_USERNAME,
-          password: import.meta.env.VITE_APP_USER2_PASSWORD,
-        },
-        {
-          username: import.meta.env.VITE_APP_USER_NAME,
-          password: import.meta.env.VITE_APP_PASSWORD,
-        },
-      ];
-      const user = usersCredential.find(
-        (user) =>
-          user.username === this.username && user.password === this.password
-      );
-
-      console.log("PASSWORD DODNENDOEDNEINDE", usersCredential);
-
-      if (!user) {
-        this.error = "Invalid username or password.";
+      if (this.loginAttempts >= this.maxAttempts) {
+        this.error = "Too many login attempts. Please try again later.";
+        setTimeout(() => {
+          this.loginAttempts = 0;
+        }, this.lockoutTime);
         return;
       }
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/authentication/token/new?api_key=${
-            import.meta.env.VITE_APP_TMDB_API_KEY
-          }`
-        );
 
-        console.log("tokeeeen ", response);
+      const sanitizedUsername = this.sanitizeInput(this.username);
+      const sanitizedPassword = await this.sanitizeInput(this.password);
 
-        const requestToken = response.data.request_token;
-        this.$cookies.set("requestToken", requestToken);
-        window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/`;
-        console.log("we are redirecting");
-      } catch (error) {
-        this.errorMessage =
-          "An error occurred while creating the request token.";
+      const user = usersCredential.find(
+        (user) =>
+          user.username === sanitizedUsername &&
+          user.password === sanitizedPassword
+      );
+
+      if (!user) {
+        this.loginAttempts++;
+        this.error = "Invalid username or password.";
+      } else {
+       this.$cookies.set("authenticated", "true", "1h");
+        this.$router.push({ name: "Home" });
       }
     },
 
@@ -176,6 +162,25 @@ export default {
         console.error("Error creating session:", error);
       }
     },
+    async fetchSessionToken() {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/authentication/token/new?api_key=${
+            import.meta.env.VITE_APP_TMDB_API_KEY
+          }`
+        );
+
+        console.log("tokeeeen ", response);
+
+        const requestToken = response.data.request_token;
+        this.$cookies.set("requestToken", requestToken);
+        window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/`;
+        console.log("we are redirecting");
+      } catch (error) {
+        this.errorMessage =
+          "An error occurred while creating the request token.";
+      }
+    },
     async fetchCsrfToken() {
       try {
         const response = await axios.get("/csrf-token");
@@ -195,20 +200,23 @@ export default {
       //  CSP enforceS such as restricting where scripts, images, or styles can be loaded from.
     },
   },
-  mounted() {
-    console.log("mountedd");
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const approved = urlParams.get("approved");
-
-  if (approved === "true") {
-    console.log("url params", urlParams);
-
-    this.createSession();
-  } else {
-    console.log("User did not approve the request.");
-  }
+  created() {
+    // this.fetchSessionToken()
   },
+  // mounted() {
+  //   console.log("mountedd");
+
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const approved = urlParams.get("approved");
+
+  // if (approved === "true") {
+  //   console.log("url params", urlParams);
+
+  //   this.createSession();
+  // } else {
+  //   console.log("User did not approve the request.");
+  // }
+  // },
 };
 </script>
 

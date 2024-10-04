@@ -27,10 +27,10 @@
 
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import Sidebar from "../components/AppSideModal.vue";
+import Sidebar from "../components/App/AppMenuModalComponent.vue";
 import { awards, celeb, community, movie, review, tv } from "../data/MenuData";
 import { useListStore } from "../store/liststore";
-
+import { useAppStore } from "../store/AppStore";
 
 export default {
   components: { Sidebar, Icon },
@@ -92,6 +92,7 @@ export default {
           apiEnd: apiEnd,
         },
       });
+      store.showMenu = false;
     },
     closeSidebars() {
       this.$emit("closeModal");

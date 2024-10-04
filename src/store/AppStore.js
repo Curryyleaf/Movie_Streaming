@@ -4,38 +4,21 @@ import api from "../Service/api";
 export const useAppStore = defineStore("movies", {
   state: () => ({
     movies: [],
-    showMenu: false,
     popularCeleb: [],
     selectedMovie: null,
     loading: false,
-    query: "",
-    searchedResults:'' , 
     sessionId: "",
     popularCelebId: "",
     movieDetails: [],
     popularCelebSingleData: [],
     popularCelebSoloImage: [],
     apiImageUrl: import.meta.env.VITE_API_IMAGE_URL,
-    
   }),
   // getters: {
   //   allMovies: (state) => state.movies,
   //   hasMovies: (state) => state.movies.length > 0,
   // },
   actions: {
-    async fetchSearch() {
-      try {
-        const response = await api.get("/search/multi", {
-          query: this.query,
-        });
-        this.searchedResults= response.data.results
-        console.log('checking the searced api' , response);
-        
-      } catch (error) {}
-    },
-    assignQuery(searchQuery) {
-      this.query = searchQuery;
-    },
     async fetchMovieDetails() {
       const movieId = this.$route.params.id;
       try {
@@ -80,32 +63,6 @@ export const useAppStore = defineStore("movies", {
       }
     },
 
-    // selectCelebSingleProfile(id) {
-    //   console.log("Selecting ID:", id); // Log the incoming ID
-    //   this.popularCelebId = id;
-    //   console.log("selectId", this.popularCelebId); // Check after assignment
-    //   this.assignPopularCelebData();
-    // },
-
-    // async fetchpopularCelebDetail() {
-    //   try {
-    //     const response = await axios.get(
-    //       `https://api.themoviedb.org/3/person/${this.popularCelebId}`,
-    //       {
-    //         headers: {
-    //           accept: "application/json",
-    //           Authorization: import.meta.env.VITE_API_ACCESS_TOKEN,
-    //         },import api from './../Service/api';
-
-    //       }
-    //     );
-    //     this.popularCelebSingleData = response.data;
-    //     console.log('data you are lokking' , response);
-
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
     async fetchPopularCelebSoloImage() {
       try {
         const response = await api.get(`/person/${this.popularCelebId}/images`);
@@ -121,36 +78,6 @@ export const useAppStore = defineStore("movies", {
       );
       this.popularCelebSingleData = data || {};
     },
-    // async fetchTrailerByImdbId(imdbId) {
-    //   const apiKey = "YOUR_YOUTUBE_API_KEY"; // Replace with your YouTube API key
-    //   const query = `${"tt2564144"} trailer`; // Constructing the query with IMDb ID
-
-    //   try {
-    //     const response = await axios.get(
-    //       "https://www.googleapis.com/youtube/v3/search",
-    //       {
-    //         params: {
-    //           part: "snippet",
-    //           q: query,
-    //           type: "video",
-    //           key: apiKey,
-    //         },
-    //       }
-    //     );
-
-    //     const videos = response.data.items;
-
-    //     if (videos.length > 0) {
-    //       const trailer = videos[0]; // Get the first trailer found
-    //       const trailerUrl = `https://www.youtube.com/watch?v=${trailer.id.videoId}`;
-    //       console.log("Trailer URL:", trailerUrl);
-    //     } else {
-    //       console.log("No trailers found.");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching trailer:", error);
-    //   }
-    // },
     selectMovie(movie) {
       this.selectedMovie = movie;
     },

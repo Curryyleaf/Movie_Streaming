@@ -1,16 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import Home from "../views/Home.vue";
-import { nextTick } from "vue"; 
+import { nextTick } from "vue";
 
 import Login from "../views/TheLogin.vue";
 import Home from "../views/TheHome.vue";
-import Cookies from "vue-cookies"; 
-import CelebSingleProfile from "../views/HeroCelebCarosoulSingle.vue";
-import MovieDetail from "../views/HeroMovieDetail.vue";
+import Cookies from "vue-cookies";
+import CelebSingleProfile from "../views/Hero/HeroCelebCarosoulSingle.vue";
+import MovieDetail from "../views/Hero/HeroMovieDetail.vue";
 import WatchList from "../views/TheWatchList.vue";
-import MenuTopMovies from "../views/Menu/MenuTopMovies.vue";
-import MenuMostPopularMovies from "../views/Menu/MenuMostPopularMovies.vue";
-import { movie } from './../data/MenuData';
 import MenuMovieList from "../views/Menu/MenuMovieList.vue";
 
 const routes = [
@@ -18,18 +14,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/Top250Movies",
-    name: "Top250Movies",
-    component: MenuTopMovies,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/mostPopularMovies",
-    name: "MostPopularMovies",
-    component: MenuMostPopularMovies,
     meta: { requiresAuth: true },
   },
   {
@@ -69,7 +53,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-      console.log("scrollBehavior is happening before router");
+    console.log("scrollBehavior is happening before router");
     if (savedPosition) {
       return savedPosition;
     } else {
@@ -78,7 +62,7 @@ const router = createRouter({
   },
 });
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = Cookies.get("requestToken");
+  const isAuthenticated = Cookies.get("authenticated");
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!isAuthenticated) {
       next({ name: "Login" });
@@ -88,15 +72,14 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
-
+});
 
 router.afterEach(() => {
-  console.log('scrollBehavior is happening before router');
-  
+  console.log("scrollBehavior is happening before router");
+
   nextTick(() => {
-    window.scrollTo(0, 0); 
-  }  ,100);
+    window.scrollTo(0, 0);
+  }, 100);
 });
 
 export default router;

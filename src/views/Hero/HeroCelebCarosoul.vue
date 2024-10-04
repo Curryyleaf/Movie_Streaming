@@ -45,7 +45,7 @@
 </template>
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import { useAppStore } from "../store/AppStore";
+import { useAppStore } from "../../store/AppStore";
 import { nextTick } from "vue";
 import { mapState, mapActions } from "pinia";
 
