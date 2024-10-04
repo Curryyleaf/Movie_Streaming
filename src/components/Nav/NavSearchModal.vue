@@ -6,7 +6,7 @@
         <ul>
           <li v-for="item in results" :key="item.id" class="flex items-center mt-2 border-b py-2">
             <img :src="item.poster" alt="" class=" rounded mr-2" />
-            <div>
+            <div @click="handleSearchClick(item.id)" class="hover:cursor-pointer">
               <h4 class="font-medium">{{ item.title }}</h4>
               <p class="text-sm text-gray-600">{{ item.description }}</p>
             </div>
@@ -26,6 +26,10 @@ export default {
     };
   },
   methods: {
+    handleSearchClick(id){
+  
+    this.$emit('searchClick' , id)
+    } ,
     handleSearch() {
       if (this.searchTerm) {
         this.results = this.movies.filter(movie => 

@@ -73,6 +73,7 @@
       <div v-if="canSearchOpen" class="relative w-full  ">
         <NavSearchModal
         :results="searchedResults"
+        @searchClick="handleSearchClick"
         ></NavSearchModal>
       </div>
     </div>
@@ -152,6 +153,14 @@ export default {
     },
   },
   methods: {
+    handleSearchClick(id){
+      this.canSearchOpen=false
+      this.$router.push({name:'MovieDetail' ,
+        params:{
+          id:id
+        }
+       })
+    } ,
     handleClickOutside(event) {
       const dropdown = this.$refs.dropDown;
       const container = this.$refs.dropDownParent;
