@@ -37,7 +37,7 @@ export default {
   created() {
     const apiEnd=this.$route.params.apiEnd
     this.listStore.currentApiEnd=apiEnd
-    this.listStore.fetchMovieList(apiEnd);
+    this.listStore.fetchMovieList();
     console.log('helllo check chck' , this.$route.params.apiEnd);
     
   },

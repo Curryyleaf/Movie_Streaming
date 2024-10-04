@@ -27,7 +27,7 @@
 
 <script>
 import { Icon } from "@iconify/vue/dist/iconify.js";
-import Sidebar from "../components/App/AppMenuModalComponent.vue";
+import Sidebar from "../components/Menu/MenuCategoriesModal.vue";
 import { awards, celeb, community, movie, review, tv } from "../data/MenuData";
 import { useListStore } from "../store/liststore";
 import { useAppStore } from "../store/AppStore";

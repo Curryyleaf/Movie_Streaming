@@ -29,10 +29,10 @@ export const useListStore = defineStore("list", {
           console.error("Error fetching data:", error);
         });
     },
-    async fetchMovieList(apiEnd) {
+    async fetchMovieList() {
       try {
         const page = this.currentPage;
-        const response = await api.get(`/movie/${apiEnd}`, {
+        const response = await api.get(`/movie/${this.currentApiEnd}`, {
           params: { page },
         });
         if (this.currentPage === 1) {

@@ -100,7 +100,7 @@
   </nav>
 </template>
 <script>
-import Sidebar from "../components/App/AppMenuModalComponent.vue";
+import Sidebar from "../components/Menu/MenuCategoriesModal.vue";
 import NavSearchModal from "../components/Nav/NavSearchModal.vue";
 import { Icon } from "@iconify/vue/dist/iconify.js";
 import { mapState } from "pinia";
